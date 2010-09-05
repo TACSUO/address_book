@@ -4,7 +4,10 @@ class PhoneNumber < ActiveRecord::Base
   @@label_options = %w(Office Cell Home Fax)
   
   set_table_name "address_book_phone_numbers"
-
+  
+  has_and_belongs_to_many :contact, {
+    :join_table => 'address_book_contacts_phone_numbers'
+  }
 end
 
 

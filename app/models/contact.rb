@@ -6,14 +6,14 @@ class Contact < ActiveRecord::Base
 
   searchable_by :first_name, :last_name, :city, :state, :zip, :email
   
-  # acts_as_revisable :revision_class_name => 'ContactRevision', :on_destroy => :revise
+  acts_as_revisable :revision_class_name => 'ContactRevision', :on_delete => :revise
   
   acts_as_stripped :first_name, :last_name, :title, :street, :city, :state, :zip,
     :email, :comments, :descriptors, :created_at, :updated_at
 
-  has_many :phone_numbers
-  
-  accepts_nested_attributes_for :phone_numbers
+  has_and_belongs_to_many :phone_numbers, {
+    :join_table => 'address_book_contacts_phone_numbers'
+  }
   
   before_validation :normalize_website
 
@@ -38,6 +38,12 @@ class Contact < ActiveRecord::Base
     end
   protected
   public
+    def update_phonebook
+      changeset! do |contact|
+        contact.phonebook = contact.phone_number_ids.join(',')
+        contact.save
+      end
+    end
 end
 
 

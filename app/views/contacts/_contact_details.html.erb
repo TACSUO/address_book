@@ -1,0 +1,24 @@
+<h2><%= contact_details.name %> (<%=h contact_details.title %>)</h2>
+
+<div>
+  <h3>Email, Website, Skype</h3>
+  <p><%= mail_to contact_details.email %></p>
+  <p><%= link_to contact_details.website, contact_details.website %></p>
+  <p><%= contact_details.skype %></p>
+</div>
+<div>
+  <h3>Phone Number(s)</h3>
+  <% contact_details.phone_numbers.each do |phone| %>
+    <p><%= phone.label %>: <%= phone.number %></p>
+  <% end %>
+</div>
+<div>
+  <h3>Address</h3>
+  <p><%= contact_details.street %></p>
+  <p><%= contact_details.city %>, <%= contact_details.state %> <%= contact_details.zip %></p>
+</div>
+<div>
+  <h3>Extra</h3>
+  <p><%= contact_details.comments %></p>
+  <p><%= contact_details.descriptors %></p>
+</div>

@@ -5,18 +5,6 @@
     <%= form.input :last_name, :required => false, :label => 'Last name' %>
     <%= form.input :title, :required => false, :label => 'Title' %>
   <% end %>
-  <% form.inputs :name => "Phone Details" do %>
-    <% @contact.phone_numbers.each do |phone| %>
-      <% form.fields_for :phone_numbers, phone do |phone_number_form| %>
-        <%= phone_number_form.input :label, :required => false, :as => :select, :collection => PhoneNumber.label_options %>
-        <%= phone_number_form.input :number, :required => false, :label => "Phone" %>
-      <% end %>
-    <% end %>
-    <% form.fields_for :phone_numbers, PhoneNumber.new do |phone_number_form| %>
-      <%= phone_number_form.input :label, :required => false, :as => :select, :collection => PhoneNumber.label_options %>
-      <%= phone_number_form.input :number, :required => false, :label => "Phone" %>
-    <% end %>
-  <% end %>
   <% form.inputs :name => "Internet Details" do %>
     <%= form.input :email, :required => false, :label => 'E-mail' %>
     <%= form.input :website, :required => false, :label => 'Website' %>
