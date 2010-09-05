@@ -1,0 +1,28 @@
+<h2><%= @contact.name %> (<%=h @contact.title %>)</h2>
+
+<%= link_to "Edit", edit_contact_path(@contact) %>
+
+<div>
+  <h3>Email, Website, Skype</h3>
+  <p><%= mail_to @contact.email %></p>
+  <p><%= link_to @contact.website, @contact.website %></p>
+  <p><%= @contact.skype %></p>
+</div>
+<div>
+  <h3>Phone Number(s)</h3>
+  <% @contact.phone_numbers.each do |phone| %>
+    <p><%= phone.label %>: <%= phone.number %></p>
+  <% end %>
+</div>
+<div>
+  <h3>Address</h3>
+  <p><%= @contact.street %></p>
+  <p><%= @contact.city %>, <%= @contact.state %> <%= @contact.zip %></p>
+</div>
+<div>
+  <h3>Extra</h3>
+  <p><%= @contact.comments %></p>
+  <p><%= @contact.descriptors %></p>
+</div>
+
+<%= render :partial => 'navigation' %>

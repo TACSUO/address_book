@@ -1,0 +1,62 @@
+<div style="width: 850px;">
+<% semantic_form_for @contact do |form| %>
+  <% form.inputs :name => "Identity" do %>
+    <%= form.input :first_name, :required => false, :label => 'First name' %>
+    <%= form.input :last_name, :required => false, :label => 'Last name' %>
+    <%= form.input :title, :required => false, :label => 'Title' %>
+  <% end %>
+  <% form.inputs :name => "Phone Details" do %>
+    <% @contact.phone_numbers.each do |phone| %>
+      <% form.fields_for :phone_numbers, phone do |phone_number_form| %>
+        <%= phone_number_form.input :label, :required => false, :as => :select, :collection => PhoneNumber.label_options %>
+        <%= phone_number_form.input :number, :required => false, :label => "Phone" %>
+      <% end %>
+    <% end %>
+    <% form.fields_for :phone_numbers, PhoneNumber.new do |phone_number_form| %>
+      <%= phone_number_form.input :label, :required => false, :as => :select, :collection => PhoneNumber.label_options %>
+      <%= phone_number_form.input :number, :required => false, :label => "Phone" %>
+    <% end %>
+  <% end %>
+  <% form.inputs :name => "Internet Details" do %>
+    <%= form.input :email, :required => false, :label => 'E-mail' %>
+    <%= form.input :website, :required => false, :label => 'Website' %>
+    <%= form.input :skype, :required => false, :label => 'Skype' %>
+  <% end %>
+  <% form.inputs :name => "Address" do %>
+    <%= form.input :street, :required => false, :label => 'Street' %>
+    <%= form.input :city, :required => false, :label => 'City' %>
+    <%= form.input :state, :required => false, :label => 'State' %>
+    <%= form.input :zip, :required => false, :label => 'Zip' %>
+  <% end %>
+  <% form.inputs :name => "Extra" do %>
+    <%= form.input :comments, :required => false, :label => 'Comments' %>
+    <%= form.input :descriptors, :required => false, :label => 'Descriptors' %>
+  <% end %>
+    <%= #form.input :agency_phone, :required => false, :label => 'Agency phone'
+    %>
+    <%= #form.input :direct_phone, :required => false, :label => 'Direct phone'
+    %>
+    <%= #form.input :alternate_phone, :required => false, :label => 'Alternate phone'
+    %>
+    <%= #form.input :fax_phone, :required => false, :label => 'Fax phone'
+    %>
+    <%= #form.input :street_address, :required => false, :label => 'Street address'
+    %>
+    <%= #form.input :home_address, :required => false, :label => 'Home address'
+    %>
+
+  <%= form.buttons %>
+<% end %>
+
+</div>
+
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#contact_state').attach(SelectPopper, <%= Contact.existing_states.to_json %>);
+
+    $('form.formtastic fieldset ol li.text textarea').attach(TextareaExpander, 40, 300);
+  });
+</script>
+<% end %>
