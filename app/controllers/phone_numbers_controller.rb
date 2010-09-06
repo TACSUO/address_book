@@ -4,17 +4,9 @@ class PhoneNumbersController < ApplicationController
   
   private
     def load_contact
-      begin
-        @contact = Contact.find(params[:contact_id], {
-          :include => :phone_numbers
-        })
-      rescue ActiveRecord::RecordNotFound
-        contact_not_found
-      end
-    end
-    def contact_not_found
-      flash[:notice] = "Could not locate the contact using id of '#{params[:contact_id]}'."
-      redirect_to contacts_path
+      @contact = Contact.find(params[:contact_id], {
+        :include => :phone_numbers
+      })
     end
   protected
   public  

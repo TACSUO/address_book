@@ -12,9 +12,6 @@ describe PhoneNumbersController do
   end
   
   describe "GET index, :contact_id => integer" do
-    it "redirects to contacts index page if no contact found" do
-      contact_not_found{ get :index, :contact_id => 1 }
-    end
     it "loads a contact as @contact" do
       load_contact{ get :index, :contact_id => 1 }
     end
@@ -24,9 +21,6 @@ describe PhoneNumbersController do
     before(:each) do
       @new_phone_number = mock_model(PhoneNumber).as_new_record
       @contact.stub_chain(:phone_numbers, :build).and_return(@new_phone_number)
-    end
-    it "redirects to contacts index page if no contact found" do
-      contact_not_found{ get :new, :contact_id => 1 }
     end
     it "loads a contact as @contact" do
       load_contact{ get :new, :contact_id => 1 }
@@ -38,9 +32,6 @@ describe PhoneNumbersController do
   end
   
   describe "GET show, :id => integer, :contact_id => integer" do
-    it "redirects to contacts index page if no contact found" do
-      contact_not_found{ get :show, :id => 1, :contact_id => 1 }
-    end
     it "loads a contact as @contact" do
       load_contact{ get :show, :id => 1, :contact_id => 1 }
     end
@@ -52,9 +43,6 @@ describe PhoneNumbersController do
   end
   
   describe "POST create, :contact_id => integer, :phone_number => {}" do
-    it "redirects to contacts index page if no contact found" do
-      contact_not_found{ post :create, :contact_id => 1 }
-    end
     it "loads a contact as @contact" do
       load_contact{ post :create, :contact_id => 1 }
     end
@@ -87,9 +75,6 @@ describe PhoneNumbersController do
   end
   
   describe "GET edit, :id => integer, :contact_id => integer" do
-    it "redirects to contacts index page if no contact found" do
-      contact_not_found{ get :edit, :id => 1, :contact_id => 1 }
-    end
     it "loads a contact as @contact" do
       load_contact{ get :edit, :id => 1, :contact_id => 1 }
     end
