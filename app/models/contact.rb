@@ -36,13 +36,17 @@ class Contact < ActiveRecord::Base
         self.website += "?#{uri.query}" unless uri.query.blank?
       end
     end
-  protected
-  public
     def update_phonebook
       changeset! do |contact|
         contact.phonebook = contact.phone_number_ids.join(',')
-        contact.save
+        #contact.save
       end
+    end
+  protected
+  public
+    def add_phone_number(phone_number_attributes)
+      phone_numbers.create(phone_number_attributes)
+      update_phonebook
     end
 end
 

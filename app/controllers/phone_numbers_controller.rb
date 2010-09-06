@@ -26,8 +26,7 @@ class PhoneNumbersController < ApplicationController
     end
     
     def create
-      @contact.phone_numbers.build(params[:phone_number])
-      if @contact.save
+      if @contact.add_phone_number(params[:phone_number])
         flash[:message] = "Phone number successfully added!"
         redirect_to contact_path(@contact)
       else

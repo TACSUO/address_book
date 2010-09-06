@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe PhoneNumbersController do
   before(:each) do
-    mock_contact(:save => nil)
+    mock_contact(:add_phone_number => nil)
     @new_phone_number = mock_model(PhoneNumber).as_new_record
     @contact.stub_chain(:phone_numbers, :build).and_return(@new_phone_number)
     Contact.stub(:find).and_return(@contact)
@@ -38,12 +38,12 @@ describe PhoneNumbersController do
       load_contact{ post :create, :contact_id => 1 }
     end
     it "saves the new phone number" do
-      @contact.should_receive(:save)
+      @contact.should_receive(:add_phone_number)
       post :create, :contact_id => 1
     end
     context "save succeeds :)" do
       before(:each) do
-        @contact.stub(:save).and_return(true)
+        @contact.stub(:add_phone_number).and_return(true)
       end
       it "sets a flash[:message]" do
         post :create, :contact_id => 1
@@ -56,7 +56,7 @@ describe PhoneNumbersController do
     end
     context "save fails :(" do
       before(:each) do
-        @contact.stub(:save).and_return(false)
+        @contact.stub(:add_phone_number).and_return(false)
       end
       it "renders the new template" do
         post :create, :contact_id => 1

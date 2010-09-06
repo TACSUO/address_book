@@ -36,12 +36,24 @@ describe Contact do
   end
   
   it "should create a new version when an attribute is updated" do
-    pending "revision implementation"
     contact = Contact.create!(@valid_attributes)
     contact.first_name = 'Sally'
-    contact.revision_number.should == 0
+    contact.revision_number.should eql 0
     contact.save
-    contact.revision_number.should == 1
+    contact.revision_number.should eql 1
+  end
+  
+  it "encapsulates adding a phone number and updating the phonebook" do
+    contact = Contact.create!(@valid_attributes)
+    contact.add_phone_number(:label => 'Cell', :number => '1234567890')
+    contact.phonebook.should eql contact.phone_number_ids.join(',')
+  end
+  
+  it "produces a revision when adding a phone number" do
+    contact = Contact.create!(@valid_attributes)
+    contact.revision_number.should eql 0
+    contact.add_phone_number(:label => 'Cell', :number => '1234567890')
+    contact.revision_number.should eql 1
   end
 end
 
