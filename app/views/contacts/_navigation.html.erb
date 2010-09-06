@@ -4,7 +4,10 @@
     <h4>Explore Contacts</h4>
 
     <p>
-      <%= link_to 'Full list of Contacts', contacts_path %>
+      <%= link_to "Full list of Contacts (#{Contact.count})", contacts_path %>
+    </p>
+    <p>
+      <%= link_to "Deleted Contacts (#{ContactRevision.deleted.count})", contact_revisions_path %>
     </p>
     
     <div>
@@ -17,12 +20,6 @@
       <% end %>
       </div>
     </div>
-    
-    <% if action_name == 'show' %>
-      <%= 
-      #render :partial => 'revision_menu'
-      %>
-    <% end %>    
   </div>
   
   <% if action_name != 'new' %>
