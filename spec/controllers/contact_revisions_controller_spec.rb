@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe ContactRevisionsController do
   
-  def mock_contact_revision(stubs={})
-    @contact_revision ||= mock_model(ContactRevision, stubs)
-  end
-  
   describe "GET index" do
     context ":id => integer" do
       it "redirects to the contact revision show page" do

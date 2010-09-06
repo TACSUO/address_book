@@ -1,6 +1,7 @@
-<% semantic_form_for @phone_number do |form| %>
-  <% form.inputs :name => "Phone Details" do %>
+<% semantic_form_for @phone_number, :url => contact_phone_numbers_path(@contact) do |form| %>
+  <% form.inputs do %>
     <%= form.input :label, :required => false, :as => :select, :collection => PhoneNumber.label_options %>
     <%= form.input :number, :required => false, :label => "Phone" %>
   <% end %>
+  <%= form.submit %>
 <% end %>

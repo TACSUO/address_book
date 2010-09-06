@@ -2,18 +2,6 @@ require 'spec_helper'
 
 describe ContactsController do
 
-  def mock_contact(stubs={})
-    @mock_contact ||= mock_model(Contact, stubs.merge({
-      :first_name => "joe", :name => "joe", :update_attributes => nil
-    }))
-  end
-
-  def mock_other_contact(stubs={})
-    @mock_other_contact ||= mock_model(Contact, stubs.merge({
-      :first_name => "john", :name => "john", :update_attributes => nil
-    }))
-  end
-
   describe "GET index" do
     it "assigns contacts as @contacts" do
       Contact.stub!(:paginate).and_return([mock_contact].paginate)

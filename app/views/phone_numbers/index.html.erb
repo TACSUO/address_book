@@ -1,0 +1,7 @@
+<h3>Phone Numbers for <%= @contact.name %></h3>
+
+<div>
+  <% @contact.phone_numbers.each do |phone_number| %>
+    <p><%= phone_number.label %>: <%= phone_number.number %></p>
+  <% end %>
+</div>
