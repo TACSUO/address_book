@@ -1,5 +1,7 @@
 <h3>New Phone Number for <%= @contact.name %></h3>
 
-<%= render :partial => 'form' %>
+<% semantic_form_for @phone_number, :url => contact_phone_numbers_path(@contact) do |form| %>
+  <%= render :partial => 'form', :object => form %>
+<% end %>
 
 <%= render :partial => 'contacts/navigation' %>

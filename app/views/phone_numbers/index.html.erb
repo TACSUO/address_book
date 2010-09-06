@@ -1,7 +1,20 @@
 <h3>Phone Numbers for <%= @contact.name %></h3>
 
-<div>
-  <% @contact.phone_numbers.each do |phone_number| %>
-    <p><%= phone_number.label %>: <%= phone_number.number %></p>
-  <% end %>
-</div>
+<table class="nice_table tablesorter">
+  <thead>
+    <tr>
+      <th>Label</th>
+      <th>Number</th>
+      <th colspan="">Manage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @contact.phone_numbers.each do |phone_number| %>
+      <tr>
+        <td><%= phone_number.label %></td>
+        <td><%= phone_number.number %></td>
+        <td><%= link_to "edit", edit_contact_phone_number_path(@contact, phone_number), :class => "fake_button" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

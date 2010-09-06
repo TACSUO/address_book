@@ -13,7 +13,7 @@ class PhoneNumbersController < ApplicationController
       end
     end
     def contact_not_found
-      flash[:message] = "Could not locate the contact using id of '#{params[:contact_id]}'."
+      flash[:notice] = "Could not locate the contact using id of '#{params[:contact_id]}'."
       redirect_to contacts_path
     end
   protected
@@ -27,10 +27,24 @@ class PhoneNumbersController < ApplicationController
     
     def create
       if @contact.add_phone_number(params[:phone_number])
-        flash[:message] = "Phone number successfully added!"
+        flash[:notice] = "Phone number successfully added!"
         redirect_to contact_path(@contact)
       else
         render :new
+      end
+    end
+    
+    def edit
+      @phone_number = @contact.phone_numbers.find(params[:id])
+    end
+    
+    def update
+      @phone_number = @contact.phone_numbers.find(params[:id])
+      if @phone_number.update_attributes(params[:phone_number])
+        flash[:notice] = "Successfully updated #{@contact.first_name} #{@contact.last_name}'s phone number!"
+        redirect_to contact_path(@contact)
+      else
+        render :edit
       end
     end
 end

@@ -2,14 +2,14 @@
 
 <div>
   <h3>Email, Website, Skype</h3>
-  <p><%= mail_to contact_details.email %></p>
-  <p><%= link_to contact_details.website, contact_details.website %></p>
+  <p><%= mail_to contact_details.email, nil, :title => "Send email" %></p>
+  <p><%= link_to contact_details.website, contact_details.website, :title => "Visit website" %></p>
   <p><%= contact_details.skype %></p>
 </div>
 <div>
   <h3>Phone Number(s)</h3>
   <% contact_details.phone_numbers.each do |phone| %>
-    <p><%= phone.label %>: <%= phone.number %></p>
+    <p><%= link_to "#{phone.label}: #{phone.number}", edit_contact_phone_number_path(@contact, phone), :title => "Edit" %></p>
   <% end %>
 </div>
 <div>

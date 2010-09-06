@@ -8,6 +8,6 @@ end
 def contact_not_found(&block)
   Contact.stub(:find).and_raise(ActiveRecord::RecordNotFound)
   yield
-  flash[:message].should_not be_nil
+  flash[:notice].should_not be_nil
   response.should redirect_to contacts_path
 end
