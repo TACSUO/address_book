@@ -22,7 +22,7 @@
       <th>Email</th>
       <th>Skype</th>
       <th>Phone Numbers</th>
-      <th colspan="2" style="border: 1px #CCF dashed; text-align:center">Manage</th>
+      <th colspan="3" style="border: 1px #CCF dashed; text-align:center">Manage</th>
     </tr>
   </thead>
   <tbody>
@@ -33,9 +33,9 @@
       <td><%= mail_to contact.email, contact.email, :encode => "javascript" %></td>
       <td><%= contact.skype %></td>
       <td>
-        <%= link_to 'add phone number', new_contact_phone_number_path(contact) %><br />
-        <%= link_to contact.phone_numbers.first, contact_phone_numbers_path(contact), :title => 'view all' unless contact.phone_numbers.empty? %>
-      </td>
+        <%= link_to "#{contact.phone_numbers.first.label}: #{contact.phone_numbers.first.number} (#{contact.phone_numbers.count} total)", contact_phone_numbers_path(contact), :title => "view all" unless contact.phone_numbers.empty? %>
+      </td>  
+      <td><%= link_to 'add phone', new_contact_phone_number_path(contact), :class => 'fake_button' %></td>
       <td><%= link_to 'edit', edit_contact_path(contact), :class => 'fake_button' %></td>
       <td><%= link_to 'delete', contact_path(contact),
                   :confirm => 'Are you sure you want to permanently delete this contact?',
