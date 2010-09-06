@@ -1,6 +1,7 @@
 <%= render :partial => 'contact_details', :object => @contact %>
 
-<%= link_to "Edit", edit_contact_path(@contact) %>
+<%= link_to "Edit", edit_contact_path(@contact), :class => 'fake_button' %>
+<%= link_to "Add phone number", new_contact_phone_number_path(@contact), :class => 'fake_button' %>
 
 <%= render :partial => 'navigation' %>
 <%= render :partial => 'contact_revisions/navigation' %>
