@@ -25,6 +25,10 @@ class PhoneNumbersController < ApplicationController
       @phone_number = @contact.phone_numbers.build
     end
     
+    def show
+      @phone_number = @contact.phone_numbers.find(params[:id])
+    end
+    
     def create
       if @contact.add_phone_number(params[:phone_number])
         flash[:notice] = "Phone number successfully added!"

@@ -37,6 +37,20 @@ describe PhoneNumbersController do
     end
   end
   
+  describe "GET show, :id => integer, :contact_id => integer" do
+    it "redirects to contacts index page if no contact found" do
+      contact_not_found{ get :show, :id => 1, :contact_id => 1 }
+    end
+    it "loads a contact as @contact" do
+      load_contact{ get :show, :id => 1, :contact_id => 1 }
+    end
+    it "loads a phone number as @phone_number" do
+      @contact.phone_numbers.should_receive(:find).and_return(mock_phone_number)
+      get :show, :id => 1, :contact_id => 1
+      assigns[:phone_number].should eql @phone_number
+    end
+  end
+  
   describe "POST create, :contact_id => integer, :phone_number => {}" do
     it "redirects to contacts index page if no contact found" do
       contact_not_found{ post :create, :contact_id => 1 }
@@ -75,6 +89,9 @@ describe PhoneNumbersController do
   describe "GET edit, :id => integer, :contact_id => integer" do
     it "redirects to contacts index page if no contact found" do
       contact_not_found{ get :edit, :id => 1, :contact_id => 1 }
+    end
+    it "loads a contact as @contact" do
+      load_contact{ get :edit, :id => 1, :contact_id => 1 }
     end
     it "loads a phone number as @phone_number" do
       @contact.phone_numbers.should_receive(:find).and_return(mock_phone_number)

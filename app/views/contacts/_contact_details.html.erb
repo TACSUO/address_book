@@ -9,7 +9,7 @@
 <div>
   <h3>Phone Number(s)</h3>
   <% contact_details.phone_numbers.each do |phone| %>
-    <p><%= link_to "#{phone.label}: #{phone.number}", edit_contact_phone_number_path(@contact, phone), :title => "Edit" %></p>
+    <p><%= link_to "#{phone.label}: #{phone.number}", contact_phone_number_path(@contact, phone), :title => "Edit" %></p>
   <% end %>
 </div>
 <div>
