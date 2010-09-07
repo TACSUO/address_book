@@ -5,9 +5,22 @@ class PhoneNumber < ActiveRecord::Base
   
   set_table_name "address_book_phone_numbers"
   
-  has_and_belongs_to_many :contact, {
+  acts_as_revisable :revision_class_name => 'PhoneNumberRevision', :on_delete => :revise
+  
+  has_and_belongs_to_many :contacts, {
     :join_table => 'address_book_contacts_phone_numbers'
   }
+  
+  validates_uniqueness_of :number
+  
+  private
+  protected
+  public
+    def update_reverse_phonebook
+      changeset! do |phone|
+        phone.reverse_phonebook = phone.contact_ids.join(',')
+      end
+    end
 end
 
 

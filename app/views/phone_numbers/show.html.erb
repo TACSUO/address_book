@@ -1,5 +1,3 @@
-<h3><%= @phone_number.label %> Phone Number for <%= @contact.name %></h3>
+<%= render :partial => 'phone_details', :object => @phone_number %>
 
-<p><%= @phone_number.number %></p>
-
-<%= render :partial => 'contacts/navigation' %>
+<%= render :partial => 'navigation' %>

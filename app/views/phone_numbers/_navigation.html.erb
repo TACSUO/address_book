@@ -1,0 +1,41 @@
+<% if controller_name == 'phone_numbers' %>
+  <%= render :partial => 'contacts/navigation' %>
+<% end %>
+<% content_for :contact_navigation do %>
+  
+  <div>
+    <h4>Explore Phone Numbers</h4>
+
+    <p>
+      <%= link_to "Full list of Phone Numbers (#{PhoneNumber.count})", phone_numbers_path %>
+    </p>
+    <p>
+      <%= link_to "Deleted Phone Numbers (#{PhoneNumberRevision.deleted.count})", phone_number_revisions_path %>
+    </p>
+  </div>
+  
+  <% if action_name != 'new' %>
+
+  <hr class="space" />
+
+    <% if @contact %>
+      <div>
+        <h4>Manage Phone Numbers</h4>
+          <% if action_name == 'show' %>
+            <p><%= link_to "Edit Contact Details".strip, edit_contact_path(@contact) %></p>
+            <p><%= link_to "Add phone number", new_contact_phone_number_path(@contact) %></p>
+          <% end %>
+  
+          <% if action_name == 'edit' %>
+            <p><%= link_to "Contact Details".strip, @contact %></p>
+          <% end %>
+      </div>    
+    <% end %>
+
+  <% end %>
+
+<% end %>
+
+<% if @phone_number %>
+  <%= render :partial => 'phone_number_revisions/navigation' %>
+<% end %>

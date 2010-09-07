@@ -31,16 +31,19 @@
 
       <p><%= link_to "Create New Contact", new_contact_path %></p>
   
-    <% if action_name == 'show' %>
+    <% if action_name == 'show' && @contact %>
       <p><%= link_to "Edit Contact Details".strip, edit_contact_path(@contact) %></p>
       <p><%= link_to "Add phone number", new_contact_phone_number_path(@contact) %></p>
     <% end %>
   
-    <% if action_name == 'edit' %>
+    <% if action_name == 'edit' && @contact %>
       <p><%= link_to "Contact Details".strip, @contact %></p>
     <% end %>
   </div>
 
   <% end %>
 
+<% end %>
+<% if controller_name == 'contacts' %>
+  <%= render :partial => 'phone_numbers/navigation' %>
 <% end %>

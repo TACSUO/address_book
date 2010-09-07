@@ -11,6 +11,12 @@ describe Contact do
     Contact.create!(@valid_attributes)
   end
   
+  it "has and belongs to many phone numbers" do
+    contact = Contact.create!(@valid_attributes)
+    contact.should respond_to :phone_numbers
+    contact.phone_numbers.respond_to?(:build).should be_true
+  end
+  
   it "attempts to prepend http(s):// to website if missing protocol" do
     contact = Contact.new(:website => "test.com")
     contact.valid?
@@ -43,10 +49,12 @@ describe Contact do
     contact.revision_number.should eql 1
   end
   
-  it "encapsulates adding a phone number and updating the phonebook" do
+  it "encapsulates adding a phone number and updating both the phonebook and reverse_phonebook" do
     contact = Contact.create!(@valid_attributes)
     contact.add_phone_number(:label => 'Cell', :number => '1234567890')
     contact.phonebook.should eql contact.phone_number_ids.join(',')
+    contact.phone_numbers.count.should eql 1
+    contact.phone_numbers.first.reverse_phonebook.should eql contact.id.to_s
   end
   
   it "produces a revision when adding a phone number" do

@@ -1,24 +1,24 @@
 <h2><%= contact_details.name %> (<%=h contact_details.title %>)</h2>
 
 <div>
-  <h3>Email, Website, Skype</h3>
+  <h4>Email, Website, Skype</h4>
   <p><%= mail_to contact_details.email, nil, :title => "Send email" %></p>
   <p><%= link_to contact_details.website, contact_details.website, :title => "Visit website" %></p>
   <p><%= contact_details.skype %></p>
 </div>
 <div>
-  <h3>Phone Number(s)</h3>
+  <h4>Phone Number(s)</h4>
   <% contact_details.phone_numbers.each do |phone| %>
-    <p><%= link_to "#{phone.label}: #{phone.number}", contact_phone_number_path(@contact, phone), :title => "Edit" %></p>
+    <p><%= link_to "#{phone.label}: #{phone.number}", phone_number_path(phone), :title => "Show" %></p>
   <% end %>
 </div>
 <div>
-  <h3>Address</h3>
+  <h4>Address</h4>
   <p><%= contact_details.street %></p>
   <p><%= contact_details.city %>, <%= contact_details.state %> <%= contact_details.zip %></p>
 </div>
 <div>
-  <h3>Extra</h3>
+  <h4>Extra</h4>
   <p><%= contact_details.comments %></p>
   <p><%= contact_details.descriptors %></p>
 </div>

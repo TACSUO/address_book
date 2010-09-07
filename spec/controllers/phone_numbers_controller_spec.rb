@@ -9,40 +9,79 @@ describe PhoneNumbersController do
       :last_name => ''
     })
     Contact.stub(:find).and_return(@contact)
+    @new_phone_number = mock_model(PhoneNumber).as_new_record
   end
   
-  describe "GET index, :contact_id => integer" do
-    it "loads a contact as @contact" do
-      load_contact{ get :index, :contact_id => 1 }
+  describe "GET index" do
+    context "with params[:contact_id]" do
+      it "loads a contact as @contact" do
+        load_contact{ get :index, :contact_id => 1 }
+      end
+      it "loads phone numbers from @contact as @phone_numbers" do
+        @contact.stub(:phone_numbers).and_return([mock_phone_number])
+        get :index, :contact_id => 1
+        assigns[:phone_numbers].should eql [mock_phone_number]
+      end
+    end
+    context "without params[:contact_id]" do
+      it "loads all phone numbers as @phone_numbers" do
+        PhoneNumber.stub(:all).and_return([mock_phone_number])
+        get :index
+        assigns[:phone_numbers].should eql [mock_phone_number]
+      end
+    end
+    it "renders the index template" do
+      get :index
+      response.should render_template("phone_numbers/index")
     end
   end
   
   describe "GET new, :contact_id => integer" do
-    before(:each) do
-      @new_phone_number = mock_model(PhoneNumber).as_new_record
-      @contact.stub_chain(:phone_numbers, :build).and_return(@new_phone_number)
+    context "with params[:contact_id]" do
+      before(:each) do
+        PhoneNumber.stub(:new).and_return(@new_phone_number)
+      end
+      it "loads a contact as @contact" do
+        load_contact{ get :new, :contact_id => 1 }
+      end
+      it "instantiates the new phone number as @phone_number" do
+        get :new, :contact_id => 1
+        assigns[:phone_number].should eql @new_phone_number
+      end
     end
-    it "loads a contact as @contact" do
-      load_contact{ get :new, :contact_id => 1 }
-    end
-    it "instantiates a new phone number as @phone_number" do
-      get :new, :contact_id => 1
-      assigns[:phone_number].should eql @new_phone_number
+    context "without params[:contact_id]" do
+      it "sets a flash[:notice]" do
+        get :new
+        flash[:notice].should_not be_nil
+      end
+      it "redirects to the contact index page" do
+        get :new
+        response.should redirect_to contacts_path
+      end
     end
   end
   
   describe "GET show, :id => integer, :contact_id => integer" do
-    it "loads a contact as @contact" do
-      load_contact{ get :show, :id => 1, :contact_id => 1 }
+    context "with params[:contact_id]" do
+      it "loads a contact as @contact" do
+        load_contact{ get :show, :id => 1, :contact_id => 1 }
+      end
+      it "loads a phone number as @phone_number" do
+        @contact.phone_numbers.should_receive(:find).and_return(mock_phone_number)
+        get :show, :id => 1, :contact_id => 1
+        assigns[:phone_number].should eql @phone_number
+      end
     end
-    it "loads a phone number as @phone_number" do
-      @contact.phone_numbers.should_receive(:find).and_return(mock_phone_number)
-      get :show, :id => 1, :contact_id => 1
-      assigns[:phone_number].should eql @phone_number
+    context "without params[:contact_id]" do
+      it "loads a phone number as @phone_number" do
+        PhoneNumber.should_receive(:find).and_return(mock_phone_number)
+        get :show, :id => 1
+        assigns[:phone_number].should eql @phone_number
+      end
     end
   end
   
-  describe "POST create, :contact_id => integer, :phone_number => {}" do
+  describe "POST create, :contact_id => integer(required), :phone_number => {}" do
     it "loads a contact as @contact" do
       load_contact{ post :create, :contact_id => 1 }
     end
@@ -75,13 +114,22 @@ describe PhoneNumbersController do
   end
   
   describe "GET edit, :id => integer, :contact_id => integer" do
-    it "loads a contact as @contact" do
-      load_contact{ get :edit, :id => 1, :contact_id => 1 }
+    context "with params[:contact_id]" do
+      it "loads a contact as @contact" do
+        load_contact{ get :edit, :id => 1, :contact_id => 1 }
+      end
+      it "loads a phone number as @phone_number" do
+        @contact.phone_numbers.should_receive(:find).and_return(mock_phone_number)
+        get :edit, :id => 1, :contact_id => 1
+        assigns[:phone_number].should eql mock_phone_number
+      end
     end
-    it "loads a phone number as @phone_number" do
-      @contact.phone_numbers.should_receive(:find).and_return(mock_phone_number)
-      get :edit, :id => 1, :contact_id => 1
-      assigns[:phone_number].should eql mock_phone_number
+    context "without params[:contact_id]" do
+      it "loads as phone number as @phone_number" do
+        PhoneNumber.should_receive(:find).and_return(mock_phone_number)
+        get :edit, :id => 1
+        assigns[:phone_number].should eql @phone_number
+      end
     end
   end
   
@@ -92,10 +140,19 @@ describe PhoneNumbersController do
       })
       @contact.phone_numbers.stub(:find).and_return(@phone_number)
     end
-    it "loads a phone number as @phone_number" do
-      @contact.phone_numbers.should_receive(:find).and_return(@phone_number)
-      put :update, :id => 1, :contact_id => 1
-      assigns[:phone_number].should eql @phone_number
+    context "with params[:contact_id]" do
+      it "loads a phone number as @phone_number" do
+        @contact.phone_numbers.should_receive(:find).and_return(@phone_number)
+        put :update, :id => 1, :contact_id => 1
+        assigns[:phone_number].should eql @phone_number
+      end
+    end
+    context "without params[:contact_id]" do
+      it "loads a phone number as @phone_number" do
+        PhoneNumber.should_receive(:find).and_return(mock_phone_number)
+        put :update, :id => 1
+        assigns[:phone_number].should eql @phone_number
+      end
     end
     it "updates the attributes for @phone_number" do
       @phone_number.should_receive(:update_attributes)
@@ -111,7 +168,7 @@ describe PhoneNumbersController do
       end
       it "redirects to the contact show page" do
         put :update, :id => 1, :contact_id => 1
-        response.should redirect_to contact_path(@contact)
+        response.should redirect_to phone_number_path(@phone_number)
       end
     end
     context "update fails :(" do

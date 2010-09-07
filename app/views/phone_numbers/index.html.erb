@@ -1,20 +1,24 @@
-<h3>Phone Numbers for <%= @contact.name %></h3>
+<h3>Phone Numbers <%= "for #{link_to @contact.name, contact_path(@contact)}" if @contact %></h3>
 
 <table class="nice_table tablesorter">
   <thead>
     <tr>
       <th>Label</th>
       <th>Number</th>
+      <th>Contacts</th>
       <th colspan="">Manage</th>
     </tr>
   </thead>
   <tbody>
-    <% @contact.phone_numbers.each do |phone_number| %>
+    <% @phone_numbers.each do |phone_number| %>
       <tr>
         <td><%= phone_number.label %></td>
-        <td><%= phone_number.number %></td>
-        <td><%= link_to "edit", edit_contact_phone_number_path(@contact, phone_number), :class => "fake_button" %></td>
+        <td><%= link_to phone_number.number, phone_number_path(phone_number) %></td>
+        <td><%= linked_contacts_for(phone_number) %></td>
+        <td><%= link_to "edit", edit_phone_number_path(phone_number), :class => "fake_button" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= render :partial => 'navigation' %>

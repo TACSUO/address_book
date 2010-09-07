@@ -14,6 +14,10 @@ def mock_contact_revision(stubs={})
   @contact_revision ||= mock_model(ContactRevision, stubs)
 end
 
+def mock_phone_number_revision(stubs={})
+  @phone_number_revision ||= mock_model(PhoneNumberRevision, stubs)
+end
+
 def mock_phone_number(stubs={})
   @phone_number ||= mock_model(PhoneNumber, stubs)
 end

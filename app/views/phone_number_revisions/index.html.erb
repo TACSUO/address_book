@@ -1,0 +1,37 @@
+<h1>Deleted Phone Numbers</h1>
+
+<% if params[:q] %>
+  <h2><em>search terms:</em> <%= params[:q] %></h2>
+<% end %>
+
+<table class="nice_table tablesorter">
+  <thead>
+    <tr>
+      <th>Label</th>
+      <th>Number</th>
+      <th>Contact(s)</th>
+      <th style="border: 1px #CCF dashed; text-align:center">Manage</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @deleted_phone_numbers.each do |phone| %>
+    <tr style="background-color: red;">
+      <td><%= phone.label %></td>
+      <td><%= phone.number %></td>
+      <td><%= phone.contacts.map{|c| c.name}.join("; ")%></td>
+      <td><%= link_to 'restore', restore_phone_number_revision_path(phone),
+                  :confirm => 'Are you sure you want to restore this deleted phone number?',
+                  :method => "post",
+                  :class => 'fake_button' %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function()
+  {
+    $(".nice_table").tablesorter( { widgets: ['zebra'], headers: { 3:{sorter: false}, 4:{sorter: false}, 5:{sorter: false}} });
+  }
+);
+</script>

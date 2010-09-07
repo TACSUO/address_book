@@ -9,7 +9,7 @@ class Contact < ActiveRecord::Base
   acts_as_revisable :revision_class_name => 'ContactRevision', :on_delete => :revise
   
   acts_as_stripped :first_name, :last_name, :title, :street, :city, :state, :zip,
-    :email, :comments, :descriptors, :created_at, :updated_at
+    :email, :skype, :comments, :descriptors, :created_at, :updated_at
 
   has_and_belongs_to_many :phone_numbers, {
     :join_table => 'address_book_contacts_phone_numbers'
@@ -39,14 +39,16 @@ class Contact < ActiveRecord::Base
     def update_phonebook
       changeset! do |contact|
         contact.phonebook = contact.phone_number_ids.join(',')
-        #contact.save
       end
     end
   protected
   public
     def add_phone_number(phone_number_attributes)
-      phone_numbers.create(phone_number_attributes)
+      number = phone_number_attributes.delete(:number)
+      phone = PhoneNumber.find_or_create_by_number(number, phone_number_attributes)
+      phone.contacts << self
       update_phonebook
+      phone.update_reverse_phonebook
     end
 end
 

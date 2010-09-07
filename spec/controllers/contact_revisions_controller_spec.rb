@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-describe ContactRevisionsController do
-  
+describe ContactRevisionsController do  
   describe "GET index" do
     context ":id => integer" do
       it "redirects to the contact revision show page" do
