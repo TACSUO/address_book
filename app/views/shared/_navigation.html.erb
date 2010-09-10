@@ -1,0 +1,80 @@
+  <h4>Search/Explore Contacts</h4>
+
+  <% form_tag search_contacts_path, :method => :get do %>
+    <%= text_field_tag 'q', params[:q], :style => "width: 120px; font-size: 11px;" %>
+    <%= submit_tag 'go', :class => 'fake_button' %><br/>
+  <% end %>
+
+  <p<%= "#{' class="nav_highlight"' if current_page?(contacts_path)}"%>>
+    <%= link_to "Full list of Contacts (#{Contact.count})", contacts_path %>
+  </p>
+  <p<%= "#{' class="nav_highlight"' if current_page?(contact_revisions_path)}"%>>
+    <%= link_to "Deleted Contacts (#{ContactRevision.deleted.count})", contact_revisions_path %>
+  </p>
+
+  <h4>Manage Contacts</h4>
+
+  <p<%= "#{' class="nav_highlight"' if current_page?(new_contact_path)}"%>><%= link_to "Create New Contact", new_contact_path %></p>
+
+  <% if @contact && !@contact.new_record? %>
+  <p<%= "#{' class="nav_highlight"' if current_page?(@contact)}"%>><%= link_to "Contact Details".strip, @contact %></p>
+  <p<%= "#{' class="nav_highlight"' if current_page?(edit_contact_path(@contact))}"%>><%= link_to "Edit Contact Details".strip, edit_contact_path(@contact) %></p>
+
+  <h4>Contact Revisions (<%= @contact.revisable_number %>)</h4>
+
+  <% if @contact.revisions.empty? %>
+    <p><em>This is the first version of this contact.</em></p>
+  <% else %>
+    <% form_tag contact_revisions_path, :method => :get do %>
+      <select name="id">
+        <% @contact.revisions.each do |evr| %>
+          <option value="<%= evr.id %>">
+            Version <%= evr.revisable_number %>
+            (<%= evr.revisable_current_at.strftime "%m/%d/%y" %>)
+          </option>
+        <% end %>
+      </select>
+      <%= submit_tag "go"  %>
+    <% end %>
+  <% end %>
+
+  <p>current version modified on <%= @contact.updated_at %></p>
+  <% end %>
+
+  <h4>Explore Phone Numbers</h4>
+
+  <p<%= "#{' class="nav_highlight"' if current_page?(phone_numbers_path)}"%>>
+    <%= link_to "Full list of Phone Numbers (#{PhoneNumber.count})", phone_numbers_path %>
+  </p>
+  <p<%= "#{' class="nav_highlight"' if current_page?(phone_number_revisions_path)}"%>>
+    <%= link_to "Deleted Phone Numbers (#{PhoneNumberRevision.deleted.count})", phone_number_revisions_path %>
+  </p>
+
+  <h4>Manage Phone Numbers</h4>
+  <% unless @contact %>
+  <p<%= "#{' class="nav_highlight"' if current_page?(new_phone_number_path)}"%>><%= link_to "Create New Phone Number", new_phone_number_path %></p>
+  <% else %>
+  <p<%= "#{' class="nav_highlight"' if current_page?(new_contact_phone_number_path(@contact))}"%>><%= link_to "Add Phone Number", new_contact_phone_number_path(@contact) %></p>
+  <% end %>
+
+  <% if @phone_number && !@phone_number.new_record? %>
+    <h4>Phone Number Revisions (<%= @phone_number.revisable_number %>)</h4>
+
+    <% if @phone_number.revisions.empty? %>
+      <p><em>This is the first version of this phone number.</em></p>
+    <% else %>
+      <% form_tag phone_number_revisions_path, :method => :get do %>
+        <select name="id">
+          <% @phone_number.revisions.each do |pnvr| %>
+            <option value="<%= pnvr.id %>">
+              Version <%= pnvr.revisable_number %>
+              (<%= pnvr.revisable_current_at.strftime "%m/%d/%y" %>)
+            </option>
+          <% end %>
+        </select>
+        <%= submit_tag "go"  %>
+      <% end %>
+    <% end %>
+
+  <p>current version modified on <%= @phone_number.updated_at %></p>
+  <% end %>

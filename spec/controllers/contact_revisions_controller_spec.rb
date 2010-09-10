@@ -28,7 +28,8 @@ describe ContactRevisionsController do
   describe "POST restore" do
     before(:each) do
       mock_contact_revision({
-        :restore => nil
+        :restore => nil,
+        :name => "Last, First"
       })
       ContactRevision.stub(:find).and_return(mock_contact_revision)
     end
@@ -48,7 +49,7 @@ describe ContactRevisionsController do
       end
       it "sets a flash[:message]" do
         post :restore, :id => 1
-        flash[:message].should_not be_nil
+        flash[:notice].should_not be_nil
       end
       it "redirects to the newly restored contact show page" do
         post :restore, :id => 1

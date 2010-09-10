@@ -9,7 +9,10 @@ describe PhoneNumbersController do
       :last_name => ''
     })
     Contact.stub(:find).and_return(@contact)
-    @new_phone_number = mock_model(PhoneNumber).as_new_record
+    @new_phone_number = mock_model(PhoneNumber, {
+      :update_reverse_phonebook => nil,
+      :save => nil
+    }).as_new_record
   end
   
   describe "GET index" do
@@ -37,10 +40,10 @@ describe PhoneNumbersController do
   end
   
   describe "GET new, :contact_id => integer" do
+    before(:each) do
+      PhoneNumber.stub(:new).and_return(@new_phone_number)
+    end
     context "with params[:contact_id]" do
-      before(:each) do
-        PhoneNumber.stub(:new).and_return(@new_phone_number)
-      end
       it "loads a contact as @contact" do
         load_contact{ get :new, :contact_id => 1 }
       end
@@ -48,15 +51,24 @@ describe PhoneNumbersController do
         get :new, :contact_id => 1
         assigns[:phone_number].should eql @new_phone_number
       end
+      it "sets form submission url as @form_url" do
+        get :new, :contact_id => 1
+        assigns[:form_url].should eql contact_phone_numbers_path(@contact)
+      end
     end
     context "without params[:contact_id]" do
-      it "sets a flash[:notice]" do
+      it "instantiates the new phone number as @phone_number" do
         get :new
-        flash[:notice].should_not be_nil
+        assigns[:phone_number].should eql @new_phone_number
       end
-      it "redirects to the contact index page" do
+      it "sets form submission url as @form_url" do
         get :new
-        response.should redirect_to contacts_path
+        assigns[:form_url].should eql phone_numbers_path
+      end
+      it "loads contacts as @contacts" do
+        Contact.stub(:find).with(:all).and_return([@contact])
+        get :new
+        assigns[:contacts].should eql [@contact]
       end
     end
   end
@@ -82,33 +94,92 @@ describe PhoneNumbersController do
   end
   
   describe "POST create, :contact_id => integer(required), :phone_number => {}" do
-    it "loads a contact as @contact" do
-      load_contact{ post :create, :contact_id => 1 }
+    context "with params[:contact_id]" do
+      it "loads a contact as @contact" do
+        load_contact{ post :create, :contact_id => 1 }
+      end
+      it "saves the new phone number" do
+        @contact.should_receive(:add_phone_number)
+        post :create, :contact_id => 1
+      end
+      context "save succeeds :)" do
+        before(:each) do
+          @contact.stub(:add_phone_number).and_return(true)
+        end
+        it "sets a flash[:notice]" do
+          post :create, :contact_id => 1
+          flash[:notice].should_not be_nil
+        end
+        it "redirects to the contact show page" do
+          post :create, :contact_id => 1
+          response.should redirect_to contact_path(@contact)
+        end
+      end
+      context "save fails :(" do
+        before(:each) do
+          @contact.stub(:add_phone_number).and_return(false)
+        end
+        it "renders the new template" do
+          post :create, :contact_id => 1
+          response.should render_template("phone_numbers/new")
+        end
+      end
     end
-    it "saves the new phone number" do
-      @contact.should_receive(:add_phone_number)
-      post :create, :contact_id => 1
-    end
-    context "save succeeds :)" do
+    context "without params[:contact_id]" do
       before(:each) do
-        @contact.stub(:add_phone_number).and_return(true)
+        @contact.stub(:update_phonebook)
+        @contact.stub(:save)
+        Contact.stub(:find).and_return([@contact])
+        @phone_number = mock_model(PhoneNumber, {
+          :update_reverse_phonebook => nil,
+          :save => nil,
+          :contacts => [@contact]
+        })
+        PhoneNumber.stub(:new).and_return(@phone_number)
       end
-      it "sets a flash[:notice]" do
-        post :create, :contact_id => 1
-        flash[:notice].should_not be_nil
+      it "instantiates a new phone number as @phone_number" do
+        PhoneNumber.should_receive(:new).and_return(@phone_number)
+        post :create
+        assigns[:phone_number]
       end
-      it "redirects to the contact show page" do
-        post :create, :contact_id => 1
-        response.should redirect_to contact_path(@contact)
+      it "updates the phone number's reverse phonebook" do
+        @phone_number.should_receive(:update_reverse_phonebook)
+        post :create
       end
-    end
-    context "save fails :(" do
-      before(:each) do
-        @contact.stub(:add_phone_number).and_return(false)
+      it "saves the phone number" do
+        @phone_number.should_receive(:save)
+        post :create
       end
-      it "renders the new template" do
-        post :create, :contact_id => 1
-        response.should render_template("phone_numbers/new")
+      context "save succeeds :)" do
+        before(:each) do
+          @phone_number.stub(:save).and_return(true)
+        end
+        it "updates each phone number's contact's addressbooks" do
+          @contact.should_receive(:update_phonebook)
+          @contact.should_receive(:save)
+          post :create
+        end
+        it "sets a flash[:notice]" do
+          post :create
+          flash[:notice].should_not be_nil
+        end
+        it "redirects to the phone number show page" do
+          post :create
+          response.should redirect_to phone_number_path(@phone_number)
+        end
+      end
+      context "save fails :(" do
+        before(:each) do
+          @phone_number.stub(:save).and_return(false)
+        end
+        it "loads contacts as @contacts" do
+          post :create
+          assigns[:contacts].should eql [@contact]
+        end
+        it "sets the form submission url as @form_url" do
+          post :create
+          assigns[:form_url].should eql phone_numbers_path
+        end
       end
     end
   end

@@ -13,12 +13,10 @@
     <% @phone_numbers.each do |phone_number| %>
       <tr>
         <td><%= phone_number.label %></td>
-        <td><%= link_to phone_number.number, phone_number_path(phone_number) %></td>
+        <td><%= link_to display_phone_number(phone_number), phone_number_path(phone_number) %></td>
         <td><%= linked_contacts_for(phone_number) %></td>
         <td><%= link_to "edit", edit_phone_number_path(phone_number), :class => "fake_button" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<%= render :partial => 'navigation' %>

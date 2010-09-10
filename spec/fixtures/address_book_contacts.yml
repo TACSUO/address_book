@@ -1,12 +1,6 @@
-require 'spec_helper'
-
-describe ContactRevision do
-  it "loads a collection phone_numbers" do
-    contact_revision = ContactRevision.new
-    contact_revision.phone_numbers.should be_kind_of Array
-  end
-end
-
+tester_mcgee:
+  first_name: Tester
+  last_name: McGee
 # == Schema Information
 #
 # Table name: address_book_contacts

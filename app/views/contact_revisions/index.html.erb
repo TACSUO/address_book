@@ -1,5 +1,3 @@
-<h1>Deleted Contacts</h1>
-
 <% if params[:q] %>
   <h2><em>search terms:</em> <%= params[:q] %></h2>
 <% end %>
@@ -25,10 +23,14 @@
   </thead>
   <tbody>
   <% for contact in @deleted_contacts %>
-    <tr style="background-color: red;">
+    <tr style="background-color: #f5c6d7;">
       <td><%= link_to contact.name, contact %></td>
       <td><%= contact.state %></td>
-      <td><%= mail_to contact.email, contact.email, :encode => "javascript" %></td>
+      <td>
+        <% unless contact.email.blank? %>
+          <%= mail_to contact.email, contact.email, :encode => "javascript" %>
+        <% end %>
+      </td>
       <td><%= link_to 'restore', restore_contact_revision_path(contact),
                   :confirm => 'Are you sure you want to restore this deleted contact?',
                   :method => "post",

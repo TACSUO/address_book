@@ -51,7 +51,7 @@ describe Contact do
   
   it "encapsulates adding a phone number and updating both the phonebook and reverse_phonebook" do
     contact = Contact.create!(@valid_attributes)
-    contact.add_phone_number(:label => 'Cell', :number => '1234567890')
+    contact.add_phone_number(:label => 'Cell', :local_number => '1234567890').should be_true
     contact.phonebook.should eql contact.phone_number_ids.join(',')
     contact.phone_numbers.count.should eql 1
     contact.phone_numbers.first.reverse_phonebook.should eql contact.id.to_s
@@ -60,30 +60,41 @@ describe Contact do
   it "produces a revision when adding a phone number" do
     contact = Contact.create!(@valid_attributes)
     contact.revision_number.should eql 0
-    contact.add_phone_number(:label => 'Cell', :number => '1234567890')
+    contact.add_phone_number(:label => 'Cell', :local_number => '1234567890')
     contact.revision_number.should eql 1
   end
 end
+
 
 
 # == Schema Information
 #
 # Table name: address_book_contacts
 #
-#  id          :integer         not null, primary key
-#  first_name  :string(255)
-#  last_name   :string(255)
-#  title       :string(255)
-#  email       :string(255)
-#  skype       :string(255)
-#  website     :string(255)
-#  street      :string(255)
-#  city        :string(255)
-#  state       :string(255)
-#  zip         :string(255)
-#  comments    :text
-#  descriptors :text
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id                         :integer         not null, primary key
+#  first_name                 :string(255)
+#  last_name                  :string(255)
+#  title                      :string(255)
+#  email                      :string(255)
+#  skype                      :string(255)
+#  website                    :string(255)
+#  street                     :string(255)
+#  city                       :string(255)
+#  state                      :string(255)
+#  zip                        :string(255)
+#  comments                   :text
+#  descriptors                :text
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  revisable_original_id      :integer
+#  revisable_branched_from_id :integer
+#  revisable_number           :integer         default(0)
+#  revisable_name             :string(255)
+#  revisable_type             :string(255)
+#  revisable_current_at       :datetime
+#  revisable_revised_at       :datetime
+#  revisable_deleted_at       :datetime
+#  revisable_is_current       :boolean         default(TRUE)
+#  phonebook                  :text
 #
 

@@ -68,7 +68,7 @@ class ContactsController < ApplicationController
   def destroy
     @contact = Contact.find(params[:id])
     @contact.destroy
-
+    flash[:notice] = "Contact <em>#{@contact.name}</em> deleted."
     respond_to do |format|
       format.html { redirect_to(contacts_url) }
       format.xml  { head :ok }

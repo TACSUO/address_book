@@ -2,6 +2,6 @@
 
 <% semantic_form_for @phone_number, :url => phone_number_path(@phone_number) do |form| %>
   <%= render :partial => 'form', :object => form %>
+  
+  <%= form.submit %>
 <% end %>
-
-<%= render :partial => 'navigation' %>

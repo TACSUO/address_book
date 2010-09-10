@@ -21,11 +21,12 @@ class PhoneNumbersController < ApplicationController
     end
   
     def new
+      @phone_number = PhoneNumber.new
       if @contact
-        @phone_number = PhoneNumber.new
+        @form_url = contact_phone_numbers_path(@contact)
       else
-        flash[:notice] = "Please select a contact for the new phone number."
-        redirect_to contacts_path
+        @contacts = Contact.find(:all)
+        @form_url = phone_numbers_path
       end
     end
     
@@ -38,10 +39,33 @@ class PhoneNumbersController < ApplicationController
     end
     
     def create
-      if @contact.add_phone_number(params[:phone_number])
-        flash[:notice] = "Phone number successfully added!"
-        redirect_to contact_path(@contact)
+      if @contact
+        save = @contact.add_phone_number(params[:phone_number])
+        if save
+          return_path = contact_path(@contact)
+        end
       else
+        @phone_number = PhoneNumber.new(params[:phone_number])
+        @phone_number.update_reverse_phonebook
+        save = @phone_number.save
+        if save
+          @phone_number.contacts.each do |contact|
+            contact.update_phonebook
+            contact.save
+          end
+          return_path = phone_number_path(@phone_number)
+        end
+      end
+      if save
+        flash[:notice] = "Phone number successfully created!"
+        redirect_to return_path
+      else
+        if @contact
+          @form_url = contact_phone_numbers_path(@contact)
+        else
+          @contacts = Contact.find(:all)
+          @form_url = phone_numbers_path
+        end
         render :new
       end
     end

@@ -22,6 +22,7 @@ class Contact < ActiveRecord::Base
   
   private
     def normalize_website
+      return true if self.website =~ /^(ht|f)tp(s)?:\/\//
       begin
         uri = URI.parse(website)
       rescue URI::InvalidURIError
@@ -36,41 +37,58 @@ class Contact < ActiveRecord::Base
         self.website += "?#{uri.query}" unless uri.query.blank?
       end
     end
-    def update_phonebook
-      changeset! do |contact|
-        contact.phonebook = contact.phone_number_ids.join(',')
-      end
-    end
   protected
   public
-    def add_phone_number(phone_number_attributes)
-      number = phone_number_attributes.delete(:number)
-      phone = PhoneNumber.find_or_create_by_number(number, phone_number_attributes)
-      phone.contacts << self
-      update_phonebook
-      phone.update_reverse_phonebook
+    def update_phonebook
+      self.phonebook = self.phone_number_ids.join(',')
+    end
+    def add_phone_number(phone_attr)
+      changeset do |contact|
+        phone = PhoneNumber.find(:first, :conditions => {
+          :country_code => phone_attr[:country_code],
+          :extension => phone_attr[:extension],
+          :local_number => phone_attr[:local_number]
+        })
+        phone = PhoneNumber.new(phone_attr) if phone.nil?
+        phone.contacts << contact
+        phone.update_reverse_phonebook
+        phone.save
+        contact.update_phonebook
+        contact.save
+      end
     end
 end
+
 
 
 # == Schema Information
 #
 # Table name: address_book_contacts
 #
-#  id          :integer         not null, primary key
-#  first_name  :string(255)
-#  last_name   :string(255)
-#  title       :string(255)
-#  email       :string(255)
-#  skype       :string(255)
-#  website     :string(255)
-#  street      :string(255)
-#  city        :string(255)
-#  state       :string(255)
-#  zip         :string(255)
-#  comments    :text
-#  descriptors :text
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id                         :integer         not null, primary key
+#  first_name                 :string(255)
+#  last_name                  :string(255)
+#  title                      :string(255)
+#  email                      :string(255)
+#  skype                      :string(255)
+#  website                    :string(255)
+#  street                     :string(255)
+#  city                       :string(255)
+#  state                      :string(255)
+#  zip                        :string(255)
+#  comments                   :text
+#  descriptors                :text
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  revisable_original_id      :integer
+#  revisable_branched_from_id :integer
+#  revisable_number           :integer         default(0)
+#  revisable_name             :string(255)
+#  revisable_type             :string(255)
+#  revisable_current_at       :datetime
+#  revisable_revised_at       :datetime
+#  revisable_deleted_at       :datetime
+#  revisable_is_current       :boolean         default(TRUE)
+#  phonebook                  :text
 #
 

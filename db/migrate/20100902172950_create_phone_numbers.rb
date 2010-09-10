@@ -1,8 +1,10 @@
 class CreatePhoneNumbers < ActiveRecord::Migration
   def self.up
     create_table :address_book_phone_numbers do |t|
-      t.string :number
-      t.string :label
+      t.string :country_code, :default => "1", :limit => 15
+      t.string :local_number, :limit => 15
+      t.string :extension, :limit => 15
+      t.string :label, :limit => 31
       
       t.timestamps
     end
@@ -15,5 +17,6 @@ class CreatePhoneNumbers < ActiveRecord::Migration
 
   def self.down
     drop_table :address_book_phone_numbers
+    drop_table :address_book_contacts_phone_numbers
   end
 end

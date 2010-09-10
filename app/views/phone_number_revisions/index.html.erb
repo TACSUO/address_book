@@ -15,9 +15,9 @@
   </thead>
   <tbody>
   <% @deleted_phone_numbers.each do |phone| %>
-    <tr style="background-color: red;">
+    <tr style="background-color: #f5c6d7;">
       <td><%= phone.label %></td>
-      <td><%= phone.number %></td>
+      <td><%= display_phone_number(phone) %></td>
       <td><%= phone.contacts.map{|c| c.name}.join("; ")%></td>
       <td><%= link_to 'restore', restore_phone_number_revision_path(phone),
                   :confirm => 'Are you sure you want to restore this deleted phone number?',

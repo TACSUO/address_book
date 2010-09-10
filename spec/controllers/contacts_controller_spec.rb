@@ -119,14 +119,21 @@ describe ContactsController do
   end
 
   describe "DELETE destroy" do
+    before(:each) do
+      Contact.stub(:find).and_return(mock_contact({
+        :destroy => true
+      }))
+    end
     it "destroys the requested contact" do
       Contact.should_receive(:find).with("37").and_return(mock_contact)
       mock_contact.should_receive(:destroy)
       delete :destroy, :id => "37"
     end
-
+    it "sets a flash[:notice]" do
+      delete :destroy, :id => 1
+      flash[:notice].should_not be_nil
+    end
     it "redirects to the contacts list" do
-      Contact.stub!(:find).and_return(mock_contact(:destroy => true))
       delete :destroy, :id => "1"
       response.should redirect_to(contacts_url)
     end

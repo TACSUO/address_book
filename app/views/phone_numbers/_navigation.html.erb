@@ -6,10 +6,10 @@
   <div>
     <h4>Explore Phone Numbers</h4>
 
-    <p>
+    <p<%= "#{' class="nav_highlight"' if current_page?(phone_numbers_path)}"%>>
       <%= link_to "Full list of Phone Numbers (#{PhoneNumber.count})", phone_numbers_path %>
     </p>
-    <p>
+    <p<%= "#{' class="nav_highlight"' if current_page?(phone_number_revisions_path)}"%>>
       <%= link_to "Deleted Phone Numbers (#{PhoneNumberRevision.deleted.count})", phone_number_revisions_path %>
     </p>
   </div>
@@ -18,7 +18,7 @@
 
   <hr class="space" />
 
-    <% if @contact %>
+    <% if @phone_number %>
       <div>
         <h4>Manage Phone Numbers</h4>
           <% if action_name == 'show' %>

@@ -10,6 +10,15 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
+      
+    when /the contact page for "(.*)"/
+      last, first = $1.split(",").map{|n| n.strip}
+      contact = Contact.find(:first, :conditions => {
+        :first_name => first,
+        :last_name => last
+      })
+      raise "Contact '#{first} #{last}' not found" if contact.nil?
+      contact_path(contact)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

@@ -1,5 +1,6 @@
   <% form.inputs do %>
-    <%= form.input :label, :required => false, :as => :select, :collection => PhoneNumber.label_options %>
-    <%= form.input :number, :required => false, :label => "Phone" %>
+    <%= form.input :label, :required => true, :as => :select, :collection => PhoneNumber.label_options %>
+    <%= form.input :country_code, :required => true, :label => "Country Code" %>
+    <%= form.input :local_number, :required => true, :label => "Phone" %>
+    <%= form.input :extension, :required => false, :label => "Extension" %>
   <% end %>
-  <%= form.submit %>

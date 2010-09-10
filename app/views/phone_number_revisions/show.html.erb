@@ -3,9 +3,3 @@
 </p>
 <h1>Phone Number - Version: <%= @phone_number_revision.revision_number %><hr /></h1>
 <%= render :partial => 'phone_numbers/phone_details', :object => @phone_number_revision %>
-
-<% content_for(:sidebar) do %>
-<p>
-  Modified on <%= @phone_number_revision.revisable_current_at.strftime "%a, %b %d %Y (%I:%M%p %Z)" %>
-</p>
-<% end %>

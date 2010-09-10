@@ -1,5 +1,3 @@
-<%= render :partial => 'navigation' %>
-
 <% if params[:q] %>
   <h2><em>search terms:</em> <%= params[:q] %></h2>
 <% end %>
@@ -33,7 +31,7 @@
       <td><%= mail_to contact.email, contact.email, :encode => "javascript" %></td>
       <td><%= contact.skype %></td>
       <td>
-        <%= link_to "#{contact.phone_numbers.first.label}: #{contact.phone_numbers.first.number} (#{contact.phone_numbers.count} total)", contact_phone_numbers_path(contact), :title => "view all" unless contact.phone_numbers.empty? %>
+        <%= link_to "#{contact.phone_numbers.first.label}: #{display_phone_number(contact.phone_numbers.first)} (#{contact.phone_numbers.count} total)", contact_phone_numbers_path(contact), :title => "view all" unless contact.phone_numbers.empty? %>
       </td>  
       <td><%= link_to 'add phone', new_contact_phone_number_path(contact), :class => 'fake_button' %></td>
       <td><%= link_to 'edit', edit_contact_path(contact), :class => 'fake_button' %></td>
