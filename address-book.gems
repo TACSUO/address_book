@@ -1,20 +1,11 @@
 # address-book.gems generated gem export file. Note that any env variable settings will be missing. Append these after using a ';' field separator
-abstract -v1.0.0
-actionmailer -v3.0.0
 actionmailer -v2.3.8
-actionpack -v3.0.0
 actionpack -v2.3.8
-activemodel -v3.0.0
-activerecord -v3.0.0
 activerecord -v2.3.8
-activeresource -v3.0.0
 activeresource -v2.3.8
-activesupport -v3.0.0
 activesupport -v2.3.8
 annotate -v2.4.0
-arel -v1.0.1
 builder -v2.1.2
-bundler -v1.0.0
 capybara -v0.3.9
 configuration -v1.1.0
 cucumber -v0.8.5
@@ -23,7 +14,6 @@ culerity -v0.2.12
 daemons -v1.1.0
 database_cleaner -v0.5.2
 diff-lcs -v1.1.2
-erubis -v2.6.6
 eventmachine -v0.12.10
 ffi -v0.6.3
 formtastic -v1.0.1
@@ -32,7 +22,6 @@ i18n -v0.4.1
 i18n -v0.3.7
 json_pure -v1.4.6
 launchy -v0.3.7
-mail -v2.2.5
 mime-types -v1.16
 nakajima-acts_as_fu -v0.0.5
 nokogiri -v1.4.3.1
@@ -41,7 +30,6 @@ rack -v1.1.0
 rack-mount -v0.6.13
 rack-test -v0.5.4
 rails -v2.3.8
-railties -v3.0.0
 rcov -v0.9.8
 rich-acts_as_revisable -v1.1.1
 rspec -v1.3.0
@@ -52,7 +40,6 @@ sqlite3-ruby -v1.3.1
 syntax -v1.0.0
 term-ansicolor -v1.0.5
 thin -v1.2.7
-thor -v0.14.0
 treetop -v1.4.8
 trollop -v1.16.2
 tzinfo -v0.3.23
