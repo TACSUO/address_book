@@ -1,3 +1,5 @@
 Simple contact management rails app.
 
 Contacts and phone numbers are versioned.
+
+address-book.gems contains list of all gems the app depends on for production and testing.
