@@ -1,4 +1,4 @@
-class ContactRevisionsController < ApplicationController
+class ContactRevisionsController < AddressBookController
   
   layout "address-book"
   
