@@ -1,5 +1,7 @@
 class PhoneNumbersController < ApplicationController
 
+  layout "address-book"
+  
   before_filter :load_contact
   
   private

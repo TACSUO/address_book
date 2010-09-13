@@ -1,4 +1,7 @@
 class ContactsController < ApplicationController
+
+  layout "address-book"
+  
   def index
     @contacts = Contact.paginate :all, :page => params[:page], :per_page => params[:per_page] || 30,
       :conditions => "last_name IS NOT NULL and last_name !=''", :order => 'last_name, first_name'

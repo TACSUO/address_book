@@ -1,4 +1,7 @@
 class PhoneNumberRevisionsController < ApplicationController
+
+  layout "address-book"
+  
   def index
     if params[:id]
       redirect_to phone_number_revision_path(params[:id])
