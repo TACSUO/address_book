@@ -1,6 +1,6 @@
   <h4>Search/Explore Contacts</h4>
 
-  <% form_tag search_contacts_path, :method => :get do %>
+  <%= form_tag search_contacts_path, :method => :get do %>
     <%= text_field_tag 'q', params[:q], :style => "width: 120px; font-size: 11px;" %>
     <%= submit_tag 'go', :class => 'fake_button' %><br/>
   <% end %>
@@ -25,7 +25,7 @@
   <% if @contact.revisions.empty? %>
     <p><em>This is the first version of this contact.</em></p>
   <% else %>
-    <% form_tag contact_revisions_path, :method => :get do %>
+    <%= form_tag contact_revisions_path, :method => :get do %>
       <select name="id">
         <% @contact.revisions.each do |evr| %>
           <option value="<%= evr.id %>">
@@ -51,7 +51,7 @@
   </p>
 
   <h4>Manage Phone Numbers</h4>
-  <% unless @contact %>
+  <% unless @contact && !@contact.new_record? %>
   <p<%= "#{' class="nav_highlight"' if current_page?(new_phone_number_path)}"%>><%= link_to "Create New Phone Number", new_phone_number_path %></p>
   <% else %>
   <p<%= "#{' class="nav_highlight"' if current_page?(new_contact_phone_number_path(@contact))}"%>><%= link_to "Add Phone Number", new_contact_phone_number_path(@contact) %></p>
@@ -63,7 +63,7 @@
     <% if @phone_number.revisions.empty? %>
       <p><em>This is the first version of this phone number.</em></p>
     <% else %>
-      <% form_tag phone_number_revisions_path, :method => :get do %>
+      <%= form_tag phone_number_revisions_path, :method => :get do %>
         <select name="id">
           <% @phone_number.revisions.each do |pnvr| %>
             <option value="<%= pnvr.id %>">

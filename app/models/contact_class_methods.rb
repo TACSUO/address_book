@@ -1,6 +1,6 @@
 module ContactClassMethods
   def existing_states
-    find(:all, :select => 'DISTINCT state').map(&:state).reject { |st| st.blank? }.sort
+    select('DISTINCT state').map(&:state).reject { |st| st.blank? }.sort
   end
 
   def string_attributes

@@ -12,6 +12,7 @@ describe ContactsController do
   
   describe "GET search" do
     it "assigns contacts as @contacts" do
+      pending "implementation"
       Contact.should_receive(:search).and_return([mock_contact])
       get :search
       assigns[:contacts].should eql [mock_contact]
@@ -92,7 +93,7 @@ describe ContactsController do
 
       it "redirects to the contact" do
         mock_contact.stub(:update_attributes).and_return(true)
-        put :update, :id => mock_contact.id
+        put :update, :id => mock_contact.id.to_s
         response.should redirect_to(contact_url(mock_contact))
       end
     end

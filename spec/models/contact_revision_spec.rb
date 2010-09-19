@@ -5,6 +5,16 @@ describe ContactRevision do
     contact_revision = ContactRevision.new
     contact_revision.phone_numbers.should be_kind_of Array
   end
+  it "scopes deleted entries" do
+    contact = Contact.create!({
+      :first_name => "yea",
+      :last_name => "rails3"
+    })
+    lost_contact = contact.destroy
+    deleted_contact = ContactRevision.deleted
+    puts deleted_contact.inspect
+    #deleted_contact.first_name.should eql lost_contact.first_name
+  end
 end
 
 # == Schema Information

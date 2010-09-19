@@ -1,6 +1,6 @@
 <h3>New Phone Number<%= " for #{@contact.name}" if @contact %></h3>
 
-<% semantic_form_for @phone_number, :url => @form_url do |form| %>
+<%= semantic_form_for @phone_number, :url => @form_url do |form| %>
   <%= render :partial => 'form', :object => form %>
   <% if @contacts && !@contact %>
   <%= render :partial => 'contacts_form', :object => form %>

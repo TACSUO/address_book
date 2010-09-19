@@ -1,4 +1,4 @@
-  <% form.inputs do %>
+  <%= form.inputs do %>
     <%= form.input :label, :required => true, :as => :select, :collection => PhoneNumber.label_options %>
     <%= form.input :country_code, :required => true, :label => "Country Code" %>
     <%= form.input :local_number, :required => true, :label => "Phone" %>

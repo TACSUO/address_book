@@ -1,22 +1,22 @@
 <div style="width: 850px;">
-<% semantic_form_for @contact do |form| %>
-  <% form.inputs :name => "Identity" do %>
+<%= semantic_form_for @contact do |form| %>
+  <%= form.inputs :name => "Identity" do %>
     <%= form.input :first_name, :required => false, :label => 'First name' %>
     <%= form.input :last_name, :required => false, :label => 'Last name' %>
     <%= form.input :title, :required => false, :label => 'Title' %>
   <% end %>
-  <% form.inputs :name => "Internet Details" do %>
+  <%= form.inputs :name => "Internet Details" do %>
     <%= form.input :email, :required => false, :label => 'E-mail' %>
     <%= form.input :website, :required => false, :label => 'Website' %>
     <%= form.input :skype, :required => false, :label => 'Skype' %>
   <% end %>
-  <% form.inputs :name => "Address" do %>
+  <%= form.inputs :name => "Address" do %>
     <%= form.input :street, :required => false, :label => 'Street' %>
     <%= form.input :city, :required => false, :label => 'City' %>
     <%= form.input :state, :required => false, :label => 'State' %>
     <%= form.input :zip, :required => false, :label => 'Zip' %>
   <% end %>
-  <% form.inputs :name => "Extra" do %>
+  <%= form.inputs :name => "Extra" do %>
     <%= form.input :comments, :required => false, :label => 'Comments' %>
     <%= form.input :descriptors, :required => false, :label => 'Descriptors' %>
   <% end %>

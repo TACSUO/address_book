@@ -5,6 +5,8 @@ class ContactRevision < ActiveRecord::Base
   include ContactInstanceMethods
   include DeletableInstanceMethods
   
+  scope :deleted, where("revisable_deleted_at IS NOT NULL")
+  
   private
   protected
   public

@@ -27,7 +27,7 @@ class PhoneNumbersController < AddressBookController
       if @contact
         @form_url = contact_phone_numbers_path(@contact)
       else
-        @contacts = Contact.find(:all)
+        @contacts = Contact.all
         @form_url = phone_numbers_path
       end
     end
@@ -65,7 +65,7 @@ class PhoneNumbersController < AddressBookController
         if @contact
           @form_url = contact_phone_numbers_path(@contact)
         else
-          @contacts = Contact.find(:all)
+          @contacts = Contact.all
           @form_url = phone_numbers_path
         end
         render :new

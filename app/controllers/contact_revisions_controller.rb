@@ -17,7 +17,7 @@ class ContactRevisionsController < AddressBookController
   def restore
     @contact_revision = ContactRevision.find(params[:id])
     if @contact_revision.restore    
-      flash[:notice] = "Contact <em>#{@contact_revision.name}</em> restored."
+      flash[:notice] = "Contact <em>#{@contact_revision.name}</em> restored.".html_safe
       redirect_to(contact_path(@contact_revision))
     else
       flash[:error] = "There was an error restoring the contact."

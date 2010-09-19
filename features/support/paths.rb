@@ -10,7 +10,7 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
-      
+
     when /the contact page for "(.*)"/
       last, first = $1.split(",").map{|n| n.strip}
       contact = Contact.find(:first, :conditions => {

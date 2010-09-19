@@ -5,7 +5,7 @@ class ContactsController < AddressBookController
   def index
     @contacts = Contact.paginate :all, :page => params[:page], :per_page => params[:per_page] || 30,
       :conditions => "last_name IS NOT NULL and last_name !=''", :order => 'last_name, first_name'
-
+      
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @contacts }
@@ -44,7 +44,7 @@ class ContactsController < AddressBookController
     
     respond_to do |format|
       if @contact.save
-        flash[:notice] = "Contact <em>#{@contact.name}</em> created."
+        flash[:notice] = "Contact <em>#{@contact.name}</em> created.".html_safe
         format.html { redirect_to(@contact) }
         format.xml  { render :xml => @contact, :status => :created, :location => @contact }
       else
@@ -58,7 +58,7 @@ class ContactsController < AddressBookController
     @contact = Contact.find(params[:id])
     respond_to do |format|
       if @contact.update_attributes(params[:contact])
-        flash[:notice] = "Contact <em>#{@contact.name}</em> updated."
+        flash[:notice] = "Contact <em>#{@contact.name}</em> updated.".html_safe
         format.html { redirect_to(@contact) }
         format.xml  { head :ok }
       else
@@ -71,7 +71,7 @@ class ContactsController < AddressBookController
   def destroy
     @contact = Contact.find(params[:id])
     @contact.destroy
-    flash[:notice] = "Contact <em>#{@contact.name}</em> deleted."
+    flash[:notice] = "Contact <em>#{@contact.name}</em> deleted.".html_safe
     respond_to do |format|
       format.html { redirect_to(contacts_url) }
       format.xml  { head :ok }

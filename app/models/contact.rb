@@ -44,7 +44,7 @@ class Contact < ActiveRecord::Base
     end
     def add_phone_number(phone_attr)
       changeset do |contact|
-        phone = PhoneNumber.find(:first, :conditions => {
+        phone = PhoneNumber.first(:conditions => {
           :country_code => phone_attr[:country_code],
           :extension => phone_attr[:extension],
           :local_number => phone_attr[:local_number]

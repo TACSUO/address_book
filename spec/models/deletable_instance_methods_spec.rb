@@ -1,13 +1,13 @@
 require 'spec_helper'
 require 'acts_as_fu'
-Spec::Runner.configure do |config|
+RSpec.configure do |config|
   config.include ActsAsFu
 end
 
 describe DeletableInstanceMethods do
   before(:each) do
     build_model :fake_revisable do
-      ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations[RAILS_ENV.to_sym])
+      ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations[Rails.env.to_sym])
       string :first_name
       string :last_name
       datetime :revisable_deleted_at
@@ -21,7 +21,7 @@ describe DeletableInstanceMethods do
       acts_as_revisable :revision_class_name => 'FakeRevision', :on_delete => :revise
     end
     build_model :fake_revision do
-      ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations[RAILS_ENV.to_sym])
+      ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations[Rails.env.to_sym])
       string :first_name
       string :last_name
       datetime :revisable_deleted_at

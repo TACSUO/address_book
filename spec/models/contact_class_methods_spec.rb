@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'acts_as_fu'
-Spec::Runner.configure do |config|
+RSpec.configure do |config|
   config.include ActsAsFu
 end
 
@@ -8,7 +8,7 @@ describe ContactClassMethods do
   describe "distinct attribute finders" do
     before(:each) do
       build_model :fake_contact do
-        ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations[RAILS_ENV.to_sym])
+        ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations[Rails.env.to_sym])
         string :first_name
         string :state
         
@@ -29,7 +29,7 @@ describe ContactClassMethods do
   describe "attribute collections grouped by type" do
     before(:each) do
       build_model :fake_contact do
-        ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations[RAILS_ENV.to_sym])
+        ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations[Rails.env.to_sym])
         string :first_name
         string :state
         
