@@ -41,24 +41,37 @@ class PhoneNumbersController < AddressBookController
     end
     
     def create
-      if @contact
-        save = @contact.add_phone_number(params[:phone_number])
-        if save
-          return_path = contact_path(@contact)
-        end
-      else
-        @phone_number = PhoneNumber.new(params[:phone_number])
-        @phone_number.update_reverse_phonebook
-        save = @phone_number.save
-        if save
-          @phone_number.contacts.each do |contact|
-            contact.update_phonebook
-            contact.save
-          end
-          return_path = phone_number_path(@phone_number)
-        end
+      if params[:phone_number]
+        @phone_number = PhoneNumber.first({
+          :conditions => {
+            :country_code => params[:phone_number][:country_code],
+            :extension => params[:phone_number][:extension],
+            :local_number => params[:phone_number][:local_number]
+          }
+        })
       end
-      if save
+      if @phone_number.nil?
+        @phone_number = PhoneNumber.new(params[:phone_number])
+      end
+      
+      @phone_number.update_reverse_phonebook
+      valid = @phone_number.valid?
+      
+      if @contact && valid
+        unless @contact.add_phone_number(@phone_number)
+          flash[:notice] = "Phone number successfully created, however it could"+
+                           " not be associated w/ #{@contact.name}"
+        end
+        return_path = contact_path(@contact)
+      elsif valid # possibly many contacts were selected
+        @phone_number.contacts.each do |contact|
+          contact.update_phonebook
+          contact.save
+        end
+        return_path = phone_number_path(@phone_number)
+      end
+      
+      if valid
         flash[:notice] = "Phone number successfully created!"
         redirect_to return_path
       else

@@ -49,19 +49,25 @@ describe Contact do
     contact.revision_number.should eql 1
   end
   
-  it "encapsulates adding a phone number and updating both the phonebook and reverse_phonebook" do
-    contact = Contact.create!(@valid_attributes)
-    contact.add_phone_number(:label => 'Cell', :local_number => '1234567890').should be_true
-    contact.phonebook.should eql contact.phone_number_ids.join(',')
-    contact.phone_numbers.count.should eql 1
-    contact.phone_numbers.first.reverse_phonebook.should eql contact.id.to_s
-  end
-  
-  it "produces a revision when adding a phone number" do
-    contact = Contact.create!(@valid_attributes)
-    contact.revision_number.should eql 0
-    contact.add_phone_number(:label => 'Cell', :local_number => '1234567890')
-    contact.revision_number.should eql 1
+  context "adding a phone number" do
+    before(:each) do
+      @contact = Contact.create!(@valid_attributes)
+      @phone_number = PhoneNumber.create!({
+        :label => 'Cell',
+        :local_number => '1234567890'
+      })
+    end
+    it "encapsulates adding a phone number and updating both the phonebook and reverse_phonebook" do
+      @contact.add_phone_number(@phone_number).should be_true
+      @contact.phonebook.should eql @contact.phone_number_ids.join(',')
+      @contact.phone_numbers.count.should eql 1
+      @contact.phone_numbers.first.reverse_phonebook.should eql @contact.id.to_s
+    end
+    it "produces a revision" do
+      @contact.revision_number.should eql 0
+      @contact.add_phone_number(@phone_number)
+      @contact.revision_number.should eql 1
+    end
   end
 end
 

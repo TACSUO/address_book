@@ -94,17 +94,60 @@ describe PhoneNumbersController do
   end
   
   describe "POST create, :contact_id => integer(required), :phone_number => {}" do
+    before(:each) do
+      phone_stubs = {
+        :update_reverse_phonebook => nil,
+        :save => nil,
+        :valid? => nil,
+        :contacts => [@contact]
+      }
+      @new_phone_number = mock_model(PhoneNumber, phone_stubs).as_new_record
+      @phone_number = mock_model(PhoneNumber, phone_stubs)
+      PhoneNumber.stub(:new).and_return(@new_phone_number)
+      PhoneNumber.stub(:first).and_return(@phone_number)
+      @phone_params = {
+        :country_code => "1",
+        :extension => "1234",
+        :local_number => "5678901234"
+      }
+    end
+    it "loads a matching phone number as @phone_number" do
+      PhoneNumber.should_receive(:first).with({
+        :conditions => {
+          :country_code => "1",
+          :extension => "1234",
+          :local_number => "5678901234"
+        }
+      }).and_return(@phone_number)
+      post :create, :phone_number => @phone_params
+      assigns[:phone_number].should eql @phone_number
+    end
+    it "instantiates a new phone number as @phone_number if no match found" do
+      PhoneNumber.stub(:first).and_return(nil)
+      PhoneNumber.should_receive(:new).and_return(@new_phone_number)
+      post :create, :phone_number => {}
+      assigns[:phone_number].should eql @new_phone_number
+    end
+    it "updates the phone number's reverse phonebook" do
+      @new_phone_number.should_receive(:update_reverse_phonebook)
+      post :create
+    end
+    it "saves the phone number" do
+      @new_phone_number.should_receive(:valid?)
+      post :create
+    end
     context "with params[:contact_id]" do
       it "loads a contact as @contact" do
         load_contact{ post :create, :contact_id => "1" }
       end
-      it "saves the new phone number" do
-        @contact.should_receive(:add_phone_number)
-        post :create, :contact_id => "1"
-      end
       context "save succeeds :)" do
         before(:each) do
+          @new_phone_number.stub(:valid?).and_return(true)
           @contact.stub(:add_phone_number).and_return(true)
+        end
+        it "adds the new phone number to the contact" do
+          @contact.should_receive(:add_phone_number)
+          post :create, :contact_id => "1"
         end
         it "sets a flash[:notice]" do
           post :create, :contact_id => "1"
@@ -130,29 +173,15 @@ describe PhoneNumbersController do
         @contact.stub(:update_phonebook)
         @contact.stub(:save)
         Contact.stub(:all).and_return([@contact])
-        @phone_number = mock_model(PhoneNumber, {
-          :update_reverse_phonebook => nil,
-          :save => nil,
-          :contacts => [@contact]
-        })
-        PhoneNumber.stub(:new).and_return(@phone_number)
-      end
-      it "instantiates a new phone number as @phone_number" do
-        PhoneNumber.should_receive(:new).and_return(@phone_number)
-        post :create
-        assigns[:phone_number]
-      end
-      it "updates the phone number's reverse phonebook" do
-        @phone_number.should_receive(:update_reverse_phonebook)
-        post :create
       end
       it "saves the phone number" do
-        @phone_number.should_receive(:save)
+        @new_phone_number.should_receive(:valid?)
         post :create
       end
       context "save succeeds :)" do
         before(:each) do
-          @phone_number.stub(:save).and_return(true)
+          @phone_number.stub(:valid?).and_return(true)
+          PhoneNumber.stub(:new).and_return(@phone_number)
         end
         it "updates each phone number's contact's addressbooks" do
           @contact.should_receive(:update_phonebook)
@@ -170,7 +199,7 @@ describe PhoneNumbersController do
       end
       context "save fails :(" do
         before(:each) do
-          @phone_number.stub(:save).and_return(false)
+          @new_phone_number.stub(:valid?).and_return(false)
         end
         it "loads contacts as @contacts" do
           post :create

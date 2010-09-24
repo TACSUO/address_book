@@ -42,19 +42,13 @@ class Contact < ActiveRecord::Base
     def update_phonebook
       self.phonebook = self.phone_number_ids.join(',')
     end
-    def add_phone_number(phone_attr)
+    def add_phone_number(phone_number_obj)
       changeset do |contact|
-        phone = PhoneNumber.first(:conditions => {
-          :country_code => phone_attr[:country_code],
-          :extension => phone_attr[:extension],
-          :local_number => phone_attr[:local_number]
-        })
-        phone = PhoneNumber.new(phone_attr) if phone.nil?
-        phone.contacts << contact
-        phone.update_reverse_phonebook
-        phone.save
+        phone_number_obj.contacts << contact
+        phone_number_obj.update_reverse_phonebook
+        phone_save = phone_number_obj.save
         contact.update_phonebook
-        contact.save
+        contact_save = contact.save
       end
     end
 end
