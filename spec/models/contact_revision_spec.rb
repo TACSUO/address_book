@@ -11,9 +11,8 @@ describe ContactRevision do
       :last_name => "rails3"
     })
     lost_contact = contact.destroy
-    deleted_contact = ContactRevision.deleted
-    puts deleted_contact.inspect
-    #deleted_contact.first_name.should eql lost_contact.first_name
+    deleted_contact = ContactRevision.deleted.first
+    deleted_contact.first_name.should eql "yea"
   end
 end
 
