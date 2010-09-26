@@ -3,7 +3,6 @@ lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
  
 require 'address-book/version'
-require 'bundler'
  
 Gem::Specification.new do |s|
   s.name = "address-book"
@@ -33,12 +32,14 @@ Gem::Specification.new do |s|
   s.files = Dir["Gemfile", "{vendor}/**/*", "{lib}/**/*", "{app}/**/*", "{config}/**/*", "{db}/migrate/**/*", "{db}/seeds.rb", "{public}/images/**/*", "{public}/stylesheets/**/*", "{public}/javascripts/**/*", "{public}/address_book/**/*"]
   s.required_rubygems_version = ">= 1.3.7"
 
-  # thanks http://github.com/phs/engineer
-  Bundler.definition.dependencies.each do |dependency|
-    if (dependency.groups & [:default, :production]).any?
-      s.add_dependency dependency.name, *dependency.requirement.as_list
-    else
-      s.add_development_dependency dependency.name, *dependency.requirement.as_list
-    end
-  end
+  s.add_dependency('rails', '>= 3.0.0')
+  s.add_dependency('sqlite3-ruby')
+  s.add_dependency('will_paginate', '~> 3.0.pre2')
+  s.add_dependency('formtastic')
+  s.add_dependency('acts_as_revisable', '>= 1.1.2')
+  
+  s.add_development_dependency('rspec-rails', '>= 2.0.0.beta.22')
+  s.add_development_dependency('cucumber-rails')
+  s.add_development_dependency('capybara')
+  s.add_development_dependency('acts_as_fu')
 end
