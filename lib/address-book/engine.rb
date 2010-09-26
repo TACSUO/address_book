@@ -8,6 +8,5 @@ module AddressBook
       :source => 'http://gemcutter.org'
     }
     config.gem 'acts_as_revisable', '>= 1.1.2'
-
   end
 end
