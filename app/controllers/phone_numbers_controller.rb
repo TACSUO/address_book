@@ -25,10 +25,10 @@ class PhoneNumbersController < AddressBookController
     def new
       @phone_number = PhoneNumber.new
       if @contact
-        @form_url = contact_phone_numbers_path(@contact)
+        @form_url = address_book.contact_phone_numbers_path(@contact)
       else
         @contacts = Contact.all
-        @form_url = phone_numbers_path
+        @form_url = address_book.phone_numbers_path
       end
     end
     
@@ -62,13 +62,13 @@ class PhoneNumbersController < AddressBookController
           flash[:notice] = "Phone number successfully created, however it could"+
                            " not be associated w/ #{@contact.name}"
         end
-        return_path = contact_path(@contact)
+        return_path = address_book.contact_path(@contact)
       elsif valid # possibly many contacts were selected
         @phone_number.contacts.each do |contact|
           contact.update_phonebook
           contact.save
         end
-        return_path = phone_number_path(@phone_number)
+        return_path = address_book.phone_number_path(@phone_number)
       end
       
       if valid
@@ -76,10 +76,10 @@ class PhoneNumbersController < AddressBookController
         redirect_to return_path
       else
         if @contact
-          @form_url = contact_phone_numbers_path(@contact)
+          @form_url = address_book.contact_phone_numbers_path(@contact)
         else
           @contacts = Contact.all
-          @form_url = phone_numbers_path
+          @form_url = address_book.phone_numbers_path
         end
         render :new
       end
@@ -101,7 +101,7 @@ class PhoneNumbersController < AddressBookController
       end
       if @phone_number.update_attributes(params[:phone_number])
         flash[:notice] = "Phone Number successfully updated!"
-        redirect_to phone_number_path(@phone_number)
+        redirect_to address_book.phone_number_path(@phone_number)
       else
         render :edit
       end

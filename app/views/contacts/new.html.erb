@@ -1,1 +1,5 @@
-<%= render :partial => 'form' %>
+<div style="width: 850px;">
+  <%= semantic_form_for(@contact, :url => address_book.contacts_path) do |form| %>
+    <%= render :partial => 'form', :object => form %>
+  <% end %>
+</div>

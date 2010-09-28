@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe PhoneNumbersHelper do
+  before(:each) do
+    helper.stub(:address_book).and_return(helper)
+  end
   it "creates a list of linked contact names" do
     contact_one = Contact.create!({
       :first_name => "Some",

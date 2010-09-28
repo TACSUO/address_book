@@ -1,4 +1,4 @@
-AddressBook::Application.configure do
+AddressBook.app_type.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
   # The production environment is meant for finished, "live" apps.

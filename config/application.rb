@@ -31,7 +31,7 @@ module AddressBook
     # config.i18n.default_locale = :de
 
     # JavaScript files you want as :defaults (application.js is always included).
-    config.action_view.javascript_expansions[:defaults] = %w(jquery-1.4.1.min rails jquery.tablesorter.min jquery-ui-1.7.2.custom.min jquery.string.1.0-min jquery.clonePosition lowpro.jquery jquery.qtip-1.0.0-rc3 behaviors)
+    config.action_view.javascript_expansions[:address_book] = %w(jquery-1.4.1.min.js rails.js jquery.tablesorter.min.js jquery-ui-1.7.2.custom.min.js jquery.string.1.0-min.js jquery.clonePosition.js lowpro.jquery.js jquery.qtip-1.0.0-rc3.js behaviors.js)
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -39,4 +39,7 @@ module AddressBook
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
   end
+
+  mattr_reader :app_type
+  @@app_type = AddressBook::Application
 end

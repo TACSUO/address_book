@@ -5,7 +5,7 @@
   <% if @phone_number.revisions.empty? %>
     <p><em>This is the first version of this phone number.</em></p>
   <% else %>
-    <%= form_tag phone_number_revisions_path, :method => :get do %>
+    <%= form_tag address_book.phone_number_revisions_path, :method => :get do %>
       <select name="id">
         <% @phone_number.revisions.each do |pnvr| %>
           <option value="<%= pnvr.id %>">

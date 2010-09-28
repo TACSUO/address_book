@@ -6,11 +6,11 @@
   <div>
     <h4>Explore Phone Numbers</h4>
 
-    <p<%= "#{' class="nav_highlight"' if current_page?(phone_numbers_path)}"%>>
-      <%= link_to "Full list of Phone Numbers (#{PhoneNumber.count})", phone_numbers_path %>
+    <p<%= "#{' class="nav_highlight"' if current_page?(address_book.phone_numbers_path)}"%>>
+      <%= link_to "Full list of Phone Numbers (#{PhoneNumber.count})", address_book.phone_numbers_path %>
     </p>
-    <p<%= "#{' class="nav_highlight"' if current_page?(phone_number_revisions_path)}"%>>
-      <%= link_to "Deleted Phone Numbers (#{PhoneNumberRevision.deleted.count})", phone_number_revisions_path %>
+    <p<%= "#{' class="nav_highlight"' if current_page?(address_book.phone_number_revisions_path)}"%>>
+      <%= link_to "Deleted Phone Numbers (#{PhoneNumberRevision.deleted.count})", address_book.phone_number_revisions_path %>
     </p>
   </div>
   
@@ -22,12 +22,12 @@
       <div>
         <h4>Manage Phone Numbers</h4>
           <% if action_name == 'show' %>
-            <p><%= link_to "Edit Contact Details".strip, edit_contact_path(@contact) %></p>
-            <p><%= link_to "Add phone number", new_contact_phone_number_path(@contact) %></p>
+            <p><%= link_to "Edit Contact Details".strip, address_book.edit_contact_path(@contact) %></p>
+            <p><%= link_to "Add phone number", address_book.new_contact_phone_number_path(@contact) %></p>
           <% end %>
   
           <% if action_name == 'edit' %>
-            <p><%= link_to "Contact Details".strip, @contact %></p>
+            <p><%= link_to "Contact Details".strip, address_book.contact_path(@contact) %></p>
           <% end %>
       </div>    
     <% end %>

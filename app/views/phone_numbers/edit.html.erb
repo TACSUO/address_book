@@ -1,6 +1,6 @@
 <h3>Edit <%= @phone_number.label %> Phone Number for <%= linked_contacts_for(@phone_number) %></h3>
 
-<%= semantic_form_for @phone_number, :url => phone_number_path(@phone_number) do |form| %>
+<%= semantic_form_for @phone_number, :url => address_book.phone_number_path(@phone_number) do |form| %>
   <%= render :partial => 'form', :object => form %>
   
   <%= form.submit %>
