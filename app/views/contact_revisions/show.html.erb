@@ -1,5 +1,5 @@
 <p>
-  <%= link_to "< Current Version", address_book.contact_revision_path(@contact_revision.current_revision), :class => 'fake_button' %>
+  <%= link_to "< Current Version", address_book.contact_path(@contact_revision.current_revision), :class => 'fake_button' %>
 </p>
 <h1>Contact - Version: <%= @contact_revision.revision_number %><hr /></h1>
 <%= render :partial => 'contacts/contact_details', :object => @contact_revision %>
