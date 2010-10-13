@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   
   private
     def address_book
-      if defined?(AbstractGroup::Engine)
+      if defined?(AddressBook::Engine)
         super
       else
         return self
