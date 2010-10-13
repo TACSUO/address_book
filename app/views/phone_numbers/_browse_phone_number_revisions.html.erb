@@ -1,0 +1,19 @@
+  <h4>Phone Number Revisions (<%= phone_number.revisable_number %>)</h4>
+
+  <% if phone_number.revisions.empty? %>
+    <p><em>This is the first version of this phone number.</em></p>
+  <% else %>
+    <%= form_tag address_book.phone_number_revisions_path, :method => :get do %>
+      <select name="id">
+        <% phone_number.revisions.each do |pnvr| %>
+          <option value="<%= pnvr.id %>">
+            Version <%= pnvr.revisable_number %>
+            (<%= pnvr.revisable_current_at.strftime "%m/%d/%y" %>)
+          </option>
+        <% end %>
+      </select>
+      <%= submit_tag "go"  %>
+    <% end %>
+  <% end %>
+
+<p>current version modified on <%= phone_number.updated_at %></p>

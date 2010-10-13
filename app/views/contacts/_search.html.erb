@@ -1,0 +1,4 @@
+<%= form_tag address_book.search_contacts_path, :method => :get do %>
+  <%= text_field_tag 'q', params[:q], :style => "width: 120px; font-size: 11px;" %>
+  <%= submit_tag 'go', :class => 'fake_button' %><br/>
+<% end %>
