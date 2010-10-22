@@ -51,6 +51,9 @@ class Contact < ActiveRecord::Base
         contact_save = contact.save
       end
     end
+    def name
+      "#{last_name}, #{first_name} (#{title}); #{city}, #{state}"
+    end
 end
 
 
