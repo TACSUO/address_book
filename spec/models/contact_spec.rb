@@ -49,6 +49,25 @@ describe Contact do
     contact.revision_number.should eql 1
   end
   
+  describe "#name => Last, First (Title); City, State" do
+    it "formats nicely despite nil values" do
+      contact = Contact.new(@valid_attributes)
+      contact.name.should eql "#{contact.last_name}, #{contact.first_name}"
+      contact.last_name = ''
+      contact.name.should eql contact.first_name
+      contact.last_name = @valid_attributes[:last_name]
+      contact.first_name = ''
+      contact.name.should eql contact.last_name
+      contact.first_name = @valid_attributes[:first_name]
+      contact.title = "Manager"
+      contact.name.should eql "#{contact.last_name}, #{contact.first_name} (#{contact.title})"
+      contact.city = "Sheboygan"
+      contact.name.should eql "#{contact.last_name}, #{contact.first_name} (#{contact.title}); #{contact.city}"
+      contact.state = "OR"
+      contact.name.should eql "#{contact.last_name}, #{contact.first_name} (#{contact.title}); #{contact.city}, #{contact.state}"
+    end
+  end
+  
   context "adding a phone number" do
     before(:each) do
       @contact = Contact.create!(@valid_attributes)

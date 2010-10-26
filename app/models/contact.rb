@@ -52,7 +52,27 @@ class Contact < ActiveRecord::Base
       end
     end
     def name
-      "#{last_name}, #{first_name} (#{title}); #{city}, #{state}"
+      first_last = ''
+      city_state = ''
+      n = ''
+      first_last << last_name unless last_name.blank?
+      first_last << ', ' unless first_name.blank? || first_last.blank?
+      first_last << first_name unless first_name.blank?
+      unless city.blank?
+        city_state << city
+        city_state << ', ' unless state.blank?
+      end
+      city_state << state unless state.blank?
+      
+      n << first_last unless first_last.blank?
+      n << " " unless title.blank? || n.blank?
+      n << "(#{title})" unless title.blank?
+      
+      unless city_state.blank?
+        n << '; ' unless n.blank?
+        n << city_state
+      end
+      n
     end
 end
 

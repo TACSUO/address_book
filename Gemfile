@@ -13,6 +13,7 @@ gem 'acts_as_revisable', {
 }
 
 group :development, :test do
+  gem 'engineer'
   gem "rspec-rails", ">= 2.0.0.beta.22"
   gem 'cucumber-rails'
   gem 'capybara'

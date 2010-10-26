@@ -5,3 +5,38 @@ require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
 AddressBook::Application.load_tasks
+
+Engineer::Tasks.new do |gem|
+  gem.name = "address_book"
+  gem.summary = %Q{Simple versioned contact management for Rails 3.}
+  gem.description = %Q{Provides basic contact management features with versioned history of changes.
+
+  Can be run either as an Engine or standalone Rails app.
+
+  Use as Engine
+
+  - Update integration app's Gemfile to use the address-book gem
+  - Use engineer provided rake tasks to install migrations & assets}
+  gem.email = ["jason.lapier@gmail.com", "jeremiah@inertialbit.net"]
+  gem.homepage = "http://github.com/inertialbit/address-book"
+  gem.authors = ["Jason LaPier", "Jeremiah Heller"]
+  gem.require_path = 'lib'
+  gem.files =  FileList[
+    "[A-Z]*",
+    "{app,config,lib,public,spec,test}/**/*",
+    "db/**/*.rb"
+  ]
+
+  # Include Bundler dependencies
+  Bundler.definition.dependencies.each do |dependency|
+    next if dependency.name == "engineer"
+
+    if (dependency.groups & [:default, :production]).any?
+      gem.add_dependency dependency.name, *dependency.requirement.as_list
+    else
+      gem.add_development_dependency dependency.name, *dependency.requirement.as_list
+    end
+  end
+
+  # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+end

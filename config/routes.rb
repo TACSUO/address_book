@@ -1,4 +1,4 @@
-AddressBook.app_type.routes.draw do
+Rails.application.routes.draw do
   root :to => 'contacts#index'
   resources :contacts do
     collection do

@@ -8,7 +8,8 @@ Feature: Manage contacts
     And I press "Create Contact"
     Then I should see "Contact McGoo, Testee created."
     And I should see "Contact Revisions (0)"
-    
+
+  @wip
   Scenario: edit a contact
     Given I am on the contacts page
     When I follow "edit" within "table.nice_table>tbody>tr:first-child"
@@ -16,7 +17,7 @@ Feature: Manage contacts
     And I fill in "Website" with "test.com"
     And I fill in "City" with "Sheboygan"
     And I press "Update Contact"
-    Then I should see "Contact McGee, Tester updated."
+    Then I should see "Contact McGee, Tester (Manager); Sheboygan updated."
     And I should see "Contact Revisions (1)"
     
   Scenario: delete a contact

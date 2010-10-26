@@ -1,0 +1,5 @@
+Description:
+    Install address_book
+
+Example:
+    rails generate address_book:install

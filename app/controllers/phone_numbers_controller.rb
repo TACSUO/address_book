@@ -1,4 +1,4 @@
-class PhoneNumbersController < AddressBookController
+class PhoneNumbersController < AddressBook::ApplicationController
 
   layout "address-book"
   
