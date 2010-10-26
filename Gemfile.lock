@@ -79,17 +79,18 @@ GEM
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
     git (1.2.5)
-    i18n (0.4.1)
+    i18n (0.4.2)
     jeweler (1.4.0)
       gemcutter (>= 0.1.0)
       git (>= 1.2.5)
       rubyforge (>= 2.0.0)
     json (1.4.6)
     json_pure (1.4.6)
-    mail (2.2.7)
+    mail (2.2.9)
       activesupport (>= 2.3.6)
-      mime-types
-      treetop (>= 1.4.5)
+      i18n (~> 0.4.1)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
     mime-types (1.16)
     nokogiri (1.4.3.1)
     polyglot (0.3.1)
@@ -152,7 +153,7 @@ DEPENDENCIES
   cucumber-rails
   engineer
   formtastic
-  rails (>= 3.0.0)
-  rspec-rails (>= 2.0.0.beta.22)
+  rails (>= 3.0.1)
+  rspec-rails (>= 2.0.1)
   sqlite3-ruby
   will_paginate (~> 3.0.pre2)

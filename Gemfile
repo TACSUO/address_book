@@ -3,7 +3,7 @@
 source 'http://rubygems.org'
 source 'http://gemcutter.org'
 
-gem 'rails', '>= 3.0.0'
+gem 'rails', '>= 3.0.1'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'will_paginate', '~> 3.0.pre2'
 gem 'formtastic'
@@ -14,7 +14,7 @@ gem 'acts_as_revisable', {
 
 group :development, :test do
   gem 'engineer'
-  gem "rspec-rails", ">= 2.0.0.beta.22"
+  gem "rspec-rails", ">= 2.0.1"
   gem 'cucumber-rails'
   gem 'capybara'
   gem 'acts_as_fu'
