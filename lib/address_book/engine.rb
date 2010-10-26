@@ -8,7 +8,7 @@ module AddressBook
 
     initializer "address_book.require_dependencies" do
       require 'bundler'
-      gemfile = Bundler::Definition.from_gemfile(root.join('Gemfile'))
+      gemfile = Bundler::Definition.build(root.join('Gemfile'), root.join('Gemfile.lock'), {})
       specs = gemfile.dependencies.select do |d|
         d.name != 'engineer' and (d.groups & [:default, :production]).any?
       end
