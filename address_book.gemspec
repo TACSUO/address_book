@@ -9,15 +9,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jason LaPier", "Jeremiah Heller"]
-  s.date = %q{2010-10-26}
-  s.description = %q{Provides basic contact management features with versioned history of changes.
-
-  Can be run either as an Engine or standalone Rails app.
-
-  Use as Engine
-
-  - Update integration app's Gemfile to use the address-book gem
-  - Use engineer provided rake tasks to install migrations & assets}
+  s.date = %q{2010-10-27}
+  s.description = %q{Provides basic contact management features with versioned history of changes.}
   s.email = ["jason.lapier@gmail.com", "jeremiah@inertialbit.net"]
   s.extra_rdoc_files = [
     "README"
@@ -174,7 +167,36 @@ Gem::Specification.new do |s|
      "spec/spec_helpers/controllers.rb",
      "spec/spec_helpers/mocks.rb",
      "test/performance/browsing_test.rb",
-     "test/test_helper.rb"
+     "test/test_helper.rb",
+     "vendor/plugins/acts_as_stripped/MIT-LICENSE",
+     "vendor/plugins/acts_as_stripped/README",
+     "vendor/plugins/acts_as_stripped/Rakefile",
+     "vendor/plugins/acts_as_stripped/init.rb",
+     "vendor/plugins/acts_as_stripped/install.rb",
+     "vendor/plugins/acts_as_stripped/lib/acts_as_stripped.rb",
+     "vendor/plugins/acts_as_stripped/test/acts_as_stripped_test.rb",
+     "vendor/plugins/acts_as_stripped/test/fixtures/some_models.yml",
+     "vendor/plugins/acts_as_stripped/uninstall.rb",
+     "vendor/plugins/searchable_by/MIT-LICENSE",
+     "vendor/plugins/searchable_by/README",
+     "vendor/plugins/searchable_by/Rakefile",
+     "vendor/plugins/searchable_by/init.rb",
+     "vendor/plugins/searchable_by/install.rb",
+     "vendor/plugins/searchable_by/lib/searchable_by.rb",
+     "vendor/plugins/searchable_by/tasks/searchable_by_tasks.rake",
+     "vendor/plugins/searchable_by/test/boot.rb",
+     "vendor/plugins/searchable_by/test/database.yml",
+     "vendor/plugins/searchable_by/test/fixtures/companies.yml",
+     "vendor/plugins/searchable_by/test/fixtures/company.rb",
+     "vendor/plugins/searchable_by/test/fixtures/employee.rb",
+     "vendor/plugins/searchable_by/test/fixtures/employees.yml",
+     "vendor/plugins/searchable_by/test/fixtures/schema.rb",
+     "vendor/plugins/searchable_by/test/helper.rb",
+     "vendor/plugins/searchable_by/test/lib/activerecord_test_case.rb",
+     "vendor/plugins/searchable_by/test/lib/activerecord_test_connector.rb",
+     "vendor/plugins/searchable_by/test/lib/load_fixtures.rb",
+     "vendor/plugins/searchable_by/test/searchable_by_test.rb",
+     "vendor/plugins/searchable_by/uninstall.rb"
   ]
   s.homepage = %q{http://github.com/inertialbit/address-book}
   s.rdoc_options = ["--charset=UTF-8"]

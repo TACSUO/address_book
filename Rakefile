@@ -9,21 +9,14 @@ AddressBook::Application.load_tasks
 Engineer::Tasks.new do |gem|
   gem.name = "address_book"
   gem.summary = %Q{Simple versioned contact management for Rails 3.}
-  gem.description = %Q{Provides basic contact management features with versioned history of changes.
-
-  Can be run either as an Engine or standalone Rails app.
-
-  Use as Engine
-
-  - Update integration app's Gemfile to use the address-book gem
-  - Use engineer provided rake tasks to install migrations & assets}
+  gem.description = %Q{Provides basic contact management features with versioned history of changes.}
   gem.email = ["jason.lapier@gmail.com", "jeremiah@inertialbit.net"]
   gem.homepage = "http://github.com/inertialbit/address-book"
   gem.authors = ["Jason LaPier", "Jeremiah Heller"]
   gem.require_path = 'lib'
   gem.files =  FileList[
     "[A-Z]*",
-    "{app,config,lib,public,spec,test}/**/*",
+    "{app,config,lib,public,vendor,spec,test}/**/*",
     "db/**/*.rb"
   ]
 
