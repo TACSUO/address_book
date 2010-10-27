@@ -2,7 +2,7 @@
   <h2><em>search terms:</em> <%= params[:q] %></h2>
 <% end %>
 
-<%= form_tag address_book.search_contacts_path, :method => :get do %>
+<%= form_tag search_contacts_path, :method => :get do %>
   <%= text_field_tag 'q', params[:q] %>
   <%= submit_tag 'search contacts' %><br/>
   <em>narrow to:</em>
@@ -26,16 +26,16 @@
   <tbody>
   <% for contact in @contacts %>
     <tr>
-      <td><%= link_to contact.name, address_book.contact_path(contact) %></td>
+      <td><%= link_to contact.name, contact_path(contact) %></td>
       <td><%= contact.state %></td>
       <td><%= mail_to contact.email, contact.email, :encode => "javascript" %></td>
       <td><%= contact.skype %></td>
       <td>
-        <%= link_to "#{contact.phone_numbers.first.label}: #{display_phone_number(contact.phone_numbers.first)} (#{contact.phone_numbers.count} total)", address_book.contact_phone_numbers_path(contact), :title => "view all" unless contact.phone_numbers.empty? %>
+        <%= link_to "#{contact.phone_numbers.first.label}: #{display_phone_number(contact.phone_numbers.first)} (#{contact.phone_numbers.count} total)", contact_phone_numbers_path(contact), :title => "view all" unless contact.phone_numbers.empty? %>
       </td>  
-      <td><%= link_to 'add phone', address_book.new_contact_phone_number_path(contact), :class => 'fake_button' %></td>
-      <td><%= link_to 'edit', address_book.edit_contact_path(contact), :class => 'fake_button' %></td>
-      <td><%= link_to 'delete', address_book.contact_path(contact),
+      <td><%= link_to 'add phone', new_contact_phone_number_path(contact), :class => 'fake_button' %></td>
+      <td><%= link_to 'edit', edit_contact_path(contact), :class => 'fake_button' %></td>
+      <td><%= link_to 'delete', contact_path(contact),
                   :confirm => 'Are you sure you want to permanently delete this contact?',
                   :method => "delete",
                   :class => 'fake_button' %></td>

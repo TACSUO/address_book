@@ -3,7 +3,7 @@
 <% if contact.revisions.empty? %>
   <p><em>This is the first version of this contact.</em></p>
 <% else %>
-  <%= form_tag address_book.contact_revisions_path, :method => :get do %>
+  <%= form_tag contact_revisions_path, :method => :get do %>
     <select name="id">
       <% contact.revisions.each do |evr| %>
         <option value="<%= evr.id %>">

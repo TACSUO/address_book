@@ -19,7 +19,7 @@
       <td><%= phone.label %></td>
       <td><%= display_phone_number(phone) %></td>
       <td><%= phone.contacts.map{|c| c.name}.join("; ")%></td>
-      <td><%= link_to 'restore', address_book.restore_phone_number_revision_path(phone),
+      <td><%= link_to 'restore', restore_phone_number_revision_path(phone),
                   :confirm => 'Are you sure you want to restore this deleted phone number?',
                   :method => "post",
                   :class => 'fake_button' %></td>

@@ -3,18 +3,18 @@
   <div>
     <h4>Explore Contacts</h4>
 
-    <p<%= "#{' class="nav_highlight"' if current_page?(address_book.contacts_path)}"%>>
-      <%= link_to "Full list of Contacts (#{Contact.count})", address_book.contacts_path %>
+    <p<%= "#{' class="nav_highlight"' if current_page?(contacts_path)}"%>>
+      <%= link_to "Full list of Contacts (#{Contact.count})", contacts_path %>
     </p>
-    <p<%= "#{' class="nav_highlight"' if current_page?(address_book.contact_revisions_path)}"%>>
-      <%= link_to "Deleted Contacts (#{ContactRevision.deleted.count})", address_book.contact_revisions_path %>
+    <p<%= "#{' class="nav_highlight"' if current_page?(contact_revisions_path)}"%>>
+      <%= link_to "Deleted Contacts (#{ContactRevision.deleted.count})", contact_revisions_path %>
     </p>
     
     <div>
       <h6>Search Contacts</h6>
 
       <div>
-      <%= form_tag address_book.search_contacts_path, :method => :get do %>
+      <%= form_tag search_contacts_path, :method => :get do %>
         <%= text_field_tag 'q', params[:q], :style => "width: 120px; font-size: 11px;" %>
         <%= submit_tag 'go', :class => 'fake_button' %><br/>
       <% end %>
@@ -31,15 +31,15 @@
   <div>
     <h4>Manage Contacts</h4>
 
-      <p<%= "#{' class="nav_highlight"' if current_page?(address_book.new_contact_path)}"%>><%= link_to "Create New Contact", address_book.new_contact_path %></p>
+      <p<%= "#{' class="nav_highlight"' if current_page?(new_contact_path)}"%>><%= link_to "Create New Contact", new_contact_path %></p>
   
     <% if action_name == 'show' && @contact %>
-      <p<%= "#{' class="nav_highlight"' if current_page?(address_book.edit_contact_path(@contact))}"%>><%= link_to "Edit Contact Details".strip, address_book.edit_contact_path(@contact) %></p>
-      <p<%= "#{' class="nav_highlight"' if current_page?(address_book.new_contact_phone_number_path(@contact))}"%>><%= link_to "Add phone number", address_book.new_contact_phone_number_path(@contact) %></p>
+      <p<%= "#{' class="nav_highlight"' if current_page?(edit_contact_path(@contact))}"%>><%= link_to "Edit Contact Details".strip, edit_contact_path(@contact) %></p>
+      <p<%= "#{' class="nav_highlight"' if current_page?(new_contact_phone_number_path(@contact))}"%>><%= link_to "Add phone number", new_contact_phone_number_path(@contact) %></p>
     <% end %>
   
     <% if action_name == 'edit' && @contact %>
-      <p<%= "#{' class="nav_highlight"' if current_page?(@contact)}"%>><%= link_to "Contact Details".strip, address_book.contact_path(@contact) %></p>
+      <p<%= "#{' class="nav_highlight"' if current_page?(@contact)}"%>><%= link_to "Contact Details".strip, contact_path(@contact) %></p>
     <% end %>
   </div>
 

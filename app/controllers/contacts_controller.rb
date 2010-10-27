@@ -45,7 +45,7 @@ class ContactsController < AddressBook::ApplicationController
     respond_to do |format|
       if @contact.save
         flash[:notice] = "Contact <em>#{@contact.name}</em> created.".html_safe
-        format.html { redirect_to(address_book.contact_path(@contact)) }
+        format.html { redirect_to(contact_path(@contact)) }
         format.xml  { render :xml => @contact, :status => :created, :location => @contact }
       else
         format.html { render :action => "new" }
@@ -59,7 +59,7 @@ class ContactsController < AddressBook::ApplicationController
     respond_to do |format|
       if @contact.update_attributes(params[:contact])
         flash[:notice] = "Contact <em>#{@contact.name}</em> updated.".html_safe
-        format.html { redirect_to(address_book.contact_path(@contact)) }
+        format.html { redirect_to(contact_path(@contact)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -73,7 +73,7 @@ class ContactsController < AddressBook::ApplicationController
     @contact.destroy
     flash[:notice] = "Contact <em>#{@contact.name}</em> deleted.".html_safe
     respond_to do |format|
-      format.html { redirect_to(address_book.contacts_path) }
+      format.html { redirect_to(contacts_path) }
       format.xml  { head :ok }
     end
   end

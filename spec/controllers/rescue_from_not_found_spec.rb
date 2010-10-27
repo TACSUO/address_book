@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+class ApplicationController < ActionController::Base
+end
+
 class FakeController < ApplicationController
 end
 

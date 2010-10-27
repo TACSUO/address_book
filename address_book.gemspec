@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "app/controllers/address_book/application_controller.rb",
-     "app/controllers/application_controller.rb",
      "app/controllers/contact_revisions_controller.rb",
      "app/controllers/contacts_controller.rb",
      "app/controllers/phone_number_revisions_controller.rb",
