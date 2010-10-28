@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jason LaPier", "Jeremiah Heller"]
-  s.date = %q{2010-10-27}
+  s.date = %q{2010-10-28}
   s.description = %q{Provides basic contact management features with versioned history of changes.}
   s.email = ["jason.lapier@gmail.com", "jeremiah@inertialbit.net"]
   s.extra_rdoc_files = [
@@ -94,6 +94,8 @@ Gem::Specification.new do |s|
      "db/schema.rb",
      "db/seeds.rb",
      "lib/address_book.rb",
+     "lib/address_book/action_view.rb",
+     "lib/address_book/asset_path.rb",
      "lib/address_book/engine.rb",
      "lib/generators/address_book/install/USAGE",
      "lib/generators/address_book/install/install_generator.rb",
