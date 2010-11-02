@@ -1,6 +1,4 @@
 class ContactsController < AddressBook::ApplicationController
-
-  layout "address-book"
   
   def index
     @contacts = Contact.paginate :all, :page => params[:page], :per_page => params[:per_page] || 30,

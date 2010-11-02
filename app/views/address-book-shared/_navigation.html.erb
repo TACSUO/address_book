@@ -5,30 +5,30 @@
   <%= link_to_contacts %>
   <%= link_to_deleted_contacts %>
 
-  <h4>Manage Contacts</h4>
-
-  <%= link_to_new_contact %>
-
-  <% if @contact && !@contact.new_record? %>
-  
-  <%= link_to_contact(@contact) %>
-  <%= link_to_edit_contact(@contact) %>
-
-  <%= form_for_browse_contact_revisions(@contact) %>
-  <% end %>
-
   <h4>Explore Phone Numbers</h4>
 
   <%= link_to_phone_numbers %>
   <%= link_to_deleted_phone_numbers %>
 
-  <h4>Manage Phone Numbers</h4>
-  <% unless @contact && !@contact.new_record? %>
-    <%= link_to_new_phone_number %>
-  <% else %>
-    <%= link_to_new_contact_phone_number(@contact) %>
+  <h4>Manage Contacts</h4>
+
+  <%= link_to_new_contact %>
+
+  <% if defined?(contact) && !contact.nil? && !contact.new_record? %>
+  
+  <%= link_to_contact(contact) %>
+  <%= link_to_edit_contact(contact) %>
+
+  <%= form_for_browse_contact_revisions(contact) %>
   <% end %>
 
-  <% if @phone_number && !@phone_number.new_record? %>
-    <%= form_for_browse_phone_number_revisions(@phone_number) %>
+  <h4>Manage Phone Numbers</h4>
+  <% unless defined?(contact) && !contact.nil? && !contact.new_record? %>
+    <%= link_to_new_phone_number %>
+  <% else %>
+    <%= link_to_new_contact_phone_number(contact) %>
+  <% end %>
+
+  <% if defined?(phone_number) && !phone_number.nil? && !phone_number.new_record? %>
+    <%= form_for_browse_phone_number_revisions(phone_number) %>
   <% end %>

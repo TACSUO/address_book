@@ -6,15 +6,13 @@
     <%= csrf_meta_tag %>
     <%= stylesheet_link_tag "blueprint/screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "blueprint/print", :media => "print" %>
-    <%= stylesheet_link_tag "blueprint/grid", :media => "screen, projection" %>
     
     <!--[if lt IE 8]>
       <%= stylesheet_link_tag "blueprint/ie", :media => "screen, projection" %>
     <![endif]-->
-
-    <%= stylesheet_link_tag "address_book", "formtastic", "formtastic_changes" %>
     
-    <%= javascript_include_tag 'jquery-1.4.1.min.js', 'rails.js', 'jquery.tablesorter.min.js', 'jquery-ui-1.7.2.custom.min.js', 'jquery.string.1.0-min.js', 'jquery.clonePosition.js', 'lowpro.jquery.js', 'jquery.qtip-1.0.0-rc3.js', 'behaviors.js' %>
+    <%= stylesheet_link_tag address_book_stylesheet_includes %>
+    <%= javascript_include_tag address_book_javascript_includes %>
     <%= yield :javascript %>
   </head>
   <body>
@@ -34,7 +32,10 @@
 
       <div class="span-4 last">
         <div class="sidebar">
-          <%= render :partial => 'address-book-shared/navigation' %>
+          <%= render :partial => 'address-book-shared/navigation', :locals => {
+            :contact => @contact,
+            :phone_number => @phone_number
+          } %>
         </div>
 
       </div>

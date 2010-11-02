@@ -1,6 +1,4 @@
 class PhoneNumbersController < AddressBook::ApplicationController
-
-  layout "address-book"
   
   before_filter :load_contact
   

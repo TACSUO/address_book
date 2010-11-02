@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jason LaPier", "Jeremiah Heller"]
-  s.date = %q{2010-10-28}
+  s.date = %q{2010-11-02}
   s.description = %q{Provides basic contact management features with versioned history of changes.}
   s.email = ["jason.lapier@gmail.com", "jeremiah@inertialbit.net"]
   s.extra_rdoc_files = [
@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "app/controllers/address_book/application_controller.rb",
+     "app/controllers/application_controller.rb",
      "app/controllers/contact_revisions_controller.rb",
      "app/controllers/contacts_controller.rb",
      "app/controllers/phone_number_revisions_controller.rb",
@@ -40,6 +41,7 @@ Gem::Specification.new do |s|
      "app/models/phone_number.rb",
      "app/models/phone_number_revision.rb",
      "app/views/address-book-shared/_flash.html.erb",
+     "app/views/address-book-shared/_main_menu.html.erb",
      "app/views/address-book-shared/_navigation.html.erb",
      "app/views/contact_revisions/_navigation.html.erb",
      "app/views/contact_revisions/index.html.erb",
@@ -53,7 +55,7 @@ Gem::Specification.new do |s|
      "app/views/contacts/index.html.erb",
      "app/views/contacts/new.html.erb",
      "app/views/contacts/show.html.erb",
-     "app/views/layouts/address-book.html.erb",
+     "app/views/layouts/application.html.erb",
      "app/views/phone_number_revisions/_navigation.html.erb",
      "app/views/phone_number_revisions/index.html.erb",
      "app/views/phone_number_revisions/show.html.erb",
@@ -67,6 +69,7 @@ Gem::Specification.new do |s|
      "app/views/phone_numbers/new.html.erb",
      "app/views/phone_numbers/show.html.erb",
      "config/application.rb",
+     "config/blueprint_settings.yml",
      "config/boot.rb",
      "config/cucumber.yml",
      "config/database.example.yml",
@@ -100,6 +103,7 @@ Gem::Specification.new do |s|
      "lib/generators/address_book/install/USAGE",
      "lib/generators/address_book/install/install_generator.rb",
      "lib/generators/address_book/install/templates/address_book.rake",
+     "lib/tasks/blueprint.rake",
      "lib/tasks/cucumber.rake",
      "public/404.html",
      "public/422.html",
@@ -118,9 +122,18 @@ Gem::Specification.new do |s|
      "public/javascripts/rails.js",
      "public/robots.txt",
      "public/stylesheets/address_book.css",
-     "public/stylesheets/blueprint/grid.css",
+     "public/stylesheets/blueprint/icons/cross.png",
+     "public/stylesheets/blueprint/icons/doc.png",
+     "public/stylesheets/blueprint/icons/email.png",
+     "public/stylesheets/blueprint/icons/external.png",
+     "public/stylesheets/blueprint/icons/feed.png",
+     "public/stylesheets/blueprint/icons/im.png",
+     "public/stylesheets/blueprint/icons/key.png",
+     "public/stylesheets/blueprint/icons/pdf.png",
+     "public/stylesheets/blueprint/icons/tick.png",
+     "public/stylesheets/blueprint/icons/visited.png",
+     "public/stylesheets/blueprint/icons/xls.png",
      "public/stylesheets/blueprint/ie.css",
-     "public/stylesheets/blueprint/oldgrid.css",
      "public/stylesheets/blueprint/plugins/buttons/icons/cross.png",
      "public/stylesheets/blueprint/plugins/buttons/icons/key.png",
      "public/stylesheets/blueprint/plugins/buttons/icons/tick.png",
@@ -143,6 +156,7 @@ Gem::Specification.new do |s|
      "public/stylesheets/blueprint/plugins/silksprite/sprite.css",
      "public/stylesheets/blueprint/plugins/silksprite/sprites.png",
      "public/stylesheets/blueprint/print.css",
+     "public/stylesheets/blueprint/readme.txt",
      "public/stylesheets/blueprint/screen.css",
      "public/stylesheets/formtastic.css",
      "public/stylesheets/formtastic_changes.css",

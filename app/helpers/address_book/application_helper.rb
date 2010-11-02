@@ -84,4 +84,37 @@ module AddressBook::ApplicationHelper
       :phone_number => phone_number
     }
   end
+  
+  def render_address_book_main_menu
+    render :partial => 'address-book-shared/main_menu'
+  end
+  
+  def render_address_book_navigation(contact=nil, phone_number=nil)
+    render :partial => 'address-book-shared/navigation', :locals => {
+      :contact => contact,
+      :phone_number => phone_number
+    }
+  end
+  
+  def address_book_javascript_includes
+    [
+      "jquery-1.4.1.min.js",
+      "rails.js",
+      "jquery.tablesorter.min.js",
+      "jquery-ui-1.7.2.custom.min.js",
+      "jquery.string.1.0-min.js",
+      "jquery.clonePosition.js",
+      "lowpro.jquery.js",
+      "jquery.qtip-1.0.0-rc3.js",
+      "behaviors.js"
+    ]         
+  end
+  
+  def address_book_stylesheet_includes
+    [
+      "address_book",
+      "formtastic",
+      "formtastic_changes"
+    ]
+  end
 end

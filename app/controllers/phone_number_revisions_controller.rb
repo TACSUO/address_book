@@ -1,6 +1,4 @@
 class PhoneNumberRevisionsController < AddressBook::ApplicationController
-
-  layout "address-book"
   
   def index
     if params[:id]
