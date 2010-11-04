@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jason LaPier", "Jeremiah Heller"]
-  s.date = %q{2010-11-02}
+  s.date = %q{2010-11-04}
   s.description = %q{Provides basic contact management features with versioned history of changes.}
   s.email = ["jason.lapier@gmail.com", "jeremiah@inertialbit.net"]
   s.extra_rdoc_files = [
@@ -73,7 +73,6 @@ Gem::Specification.new do |s|
      "config/boot.rb",
      "config/cucumber.yml",
      "config/database.example.yml",
-     "config/database.yml",
      "config/environment.rb",
      "config/environments/cucumber.rb",
      "config/environments/development.rb",
@@ -202,7 +201,7 @@ Gem::Specification.new do |s|
      "vendor/plugins/searchable_by/test/searchable_by_test.rb",
      "vendor/plugins/searchable_by/uninstall.rb"
   ]
-  s.homepage = %q{http://github.com/inertialbit/address-book}
+  s.homepage = %q{http://github.com/inertialbit/address_book}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}

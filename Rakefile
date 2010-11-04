@@ -6,12 +6,14 @@ require 'rake'
 
 AddressBook::Application.load_tasks
 
+excluded_files = %w(config/database.yml)
+
 Engineer::Tasks.new do |gem|
   gem.name = "address_book"
   gem.summary = %Q{Simple versioned contact management for Rails 3.}
   gem.description = %Q{Provides basic contact management features with versioned history of changes.}
   gem.email = ["jason.lapier@gmail.com", "jeremiah@inertialbit.net"]
-  gem.homepage = "http://github.com/inertialbit/address-book"
+  gem.homepage = "http://github.com/inertialbit/address_book"
   gem.authors = ["Jason LaPier", "Jeremiah Heller"]
   gem.require_path = 'lib'
   gem.files =  FileList[
@@ -19,6 +21,8 @@ Engineer::Tasks.new do |gem|
     "{app,config,lib,public,vendor,spec,test}/**/*",
     "db/**/*.rb"
   ]
+  
+  excluded_files.each{|f| gem.files.exclude(f)}
 
   # Include Bundler dependencies
   Bundler.definition.dependencies.each do |dependency|
