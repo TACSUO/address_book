@@ -10,37 +10,41 @@ module AddressBook::ApplicationHelper
       end
     end
   
-    content_tag(tag, wrapper_options) do
-      link_to(link_text, path, link_options)
+    unless wrapper_options.delete(:no_wrapper)
+      return content_tag(tag, wrapper_options) do
+        link_to(link_text, path, link_options)
+      end
+    else
+      return link_to(link_text, path, link_options)
     end
   end
 
-  def link_to_contacts
-    link_wrapper(contacts_path, {}, {
+  def link_to_contacts(wrapper_options={})
+    link_wrapper(contacts_path, wrapper_options, {
       :link_text => "Full list of Contacts (#{Contact.count})"
     })
   end
 
-  def link_to_deleted_contacts
-    link_wrapper(contact_revisions_path, {}, {
+  def link_to_deleted_contacts(wrapper_options={})
+    link_wrapper(contact_revisions_path, wrapper_options, {
       :link_text => "Deleted Contacts (#{ContactRevision.deleted.count})"
     })
   end
 
-  def link_to_new_contact
-    link_wrapper(new_contact_path, {}, {
+  def link_to_new_contact(wrapper_options={})
+    link_wrapper(new_contact_path, wrapper_options, {
       :link_text => "Create New Contact"
     })
   end
 
-  def link_to_contact(contact)
-    link_wrapper(contact_path(contact), {}, {
+  def link_to_contact(contact, wrapper_options={})
+    link_wrapper(contact_path(contact), wrapper_options, {
       :link_text => "Contact Details"
     })
   end
 
-  def link_to_edit_contact(contact)
-    link_wrapper(edit_contact_path(contact), {}, {
+  def link_to_edit_contact(contact, wrapper_options={})
+    link_wrapper(edit_contact_path(contact), wrapper_options, {
       :link_text => "Edit Contact Details"
     })
   end
@@ -55,26 +59,26 @@ module AddressBook::ApplicationHelper
     render :partial => 'contacts/search'
   end
 
-  def link_to_phone_numbers
-    link_wrapper(phone_numbers_path, {}, {
+  def link_to_phone_numbers(wrapper_options={})
+    link_wrapper(phone_numbers_path, wrapper_options, {
       :link_text => "Full list of Phone Numbers (#{PhoneNumber.count})"
     })
   end
 
-  def link_to_deleted_phone_numbers
-    link_wrapper(phone_number_revisions_path, {}, {
+  def link_to_deleted_phone_numbers(wrapper_options={})
+    link_wrapper(phone_number_revisions_path, wrapper_options, {
       :link_text => "Deleted Phone Numbers (#{PhoneNumberRevision.deleted.count})"
     })
   end
 
-  def link_to_new_phone_number
-    link_wrapper(new_phone_number_path, {}, {
+  def link_to_new_phone_number(wrapper_options={})
+    link_wrapper(new_phone_number_path, wrapper_options, {
       :link_text => "Create New Phone Number"
     })
   end
 
-  def link_to_new_contact_phone_number(contact)
-    link_wrapper(new_contact_phone_number_path(contact), {}, {
+  def link_to_new_contact_phone_number(contact, wrapper_options={})
+    link_wrapper(new_contact_phone_number_path(contact), wrapper_options, {
       :link_text => "Add Phone Number"
     })
   end
